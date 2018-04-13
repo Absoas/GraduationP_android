@@ -1,14 +1,13 @@
 package com.example.yb.testtalk.Menu_Search;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.yb.testtalk.Info_Fragment.first_PatientRoom;
-import com.example.yb.testtalk.Info_Fragment.second_PatientRoom;
 import com.example.yb.testtalk.R;
-import com.example.yb.testtalk.fragment.PeopleFragment;
+import com.example.yb.testtalk.fragment_info.first_PatientRoom;
+import com.example.yb.testtalk.fragment_info.second_PatientRoom;
 
 public class After_Search extends AppCompatActivity {
 

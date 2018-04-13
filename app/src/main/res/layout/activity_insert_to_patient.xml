@@ -7,42 +7,81 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-
-    <EditText
-        android:id="@+id/EditText_pin"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="식별 번호" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/EditText_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="이름" />
+        <EditText
+            android:id="@+id/EditText_pin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="식별 번호" />
 
-    <EditText
-        android:id="@+id/EditText_age"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="나이" />
+    </android.support.design.widget.TextInputLayout>
 
-    <EditText
-        android:id="@+id/EditText_telephone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="전화번호" />
 
-    <EditText
-        android:id="@+id/EditText_Protector_Name"
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="보호자 이름" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/EditText_Protector_Phone"
+        <EditText
+            android:id="@+id/EditText_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="이름" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="보호자 전화번호" />
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/EditText_age"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="나이" />
+
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/EditText_telephone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="전화번호" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/EditText_Protector_Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="보호자 이름" />
+
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/EditText_Protector_Phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="보호자 전화번호" />
+
+
+    </android.support.design.widget.TextInputLayout>
 
 
     <TextView
@@ -65,8 +104,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <Button
-            android:id="@+id/Info_More_details"
+            android:id="@+id/button_Info_More_details"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="추가 사항 입력" />
@@ -84,14 +124,13 @@
         android:orientation="vertical">
 
         <FrameLayout
-            android:id="@+id/mainactivity_framelayout"
+            android:id="@+id/Menu_Patient_Insert_frameLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/insert_to_frameLayout"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true">
-        </FrameLayout>
+            android:layout_alignParentTop="true"></FrameLayout>
 
     </LinearLayout>
 

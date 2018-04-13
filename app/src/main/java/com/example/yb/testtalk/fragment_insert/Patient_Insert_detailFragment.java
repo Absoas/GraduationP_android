@@ -1,15 +1,17 @@
-package com.example.yb.testtalk.Menu_Insert;
+package com.example.yb.testtalk.fragment_insert;
 
+import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.yb.testtalk.R;
-import com.example.yb.testtalk.fragment_insert.Patient_Insert_detailFragment;
 
 import org.json.JSONObject;
 
@@ -24,59 +26,49 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class Insert_to_PatientInfo extends AppCompatActivity {
+public class Patient_Insert_detailFragment extends Fragment {
 
-    TextView tvData;
-    EditText Pin,name,age,telephone,Protector_Name,Protector_Phone;
-    Button Info_More_details;
+    EditText pin,temp,bpm,press;
+    Button Send;
+    TextView resultRx;
 
+
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_insert_to_patient);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_insert_detail,container,false);
 
-        Pin = (EditText) findViewById(R.id.EditText_pin);
-        name = (EditText)findViewById(com.example.yb.testtalk.R.id.EditText_name);
-        age = (EditText)findViewById(com.example.yb.testtalk.R.id.EditText_age);
-        telephone = (EditText)findViewById(com.example.yb.testtalk.R.id.EditText_telephone);
-        Protector_Name = (EditText)findViewById(com.example.yb.testtalk.R.id.EditText_Protector_Name);
-        Protector_Phone = (EditText)findViewById(com.example.yb.testtalk.R.id.EditText_Protector_Phone);
-        Info_More_details = (Button)findViewById(R.id.button_Info_More_details);
+        pin = (EditText) view.findViewById(R.id.Edit_patient_pin);
+        temp = (EditText) view.findViewById(R.id.Edit_patient_temp);
+        bpm = (EditText) view.findViewById(R.id.Edit_patient_bpm);
+        press = (EditText) view.findViewById(R.id.Edit_patient_press);
+        resultRx = (TextView) view.findViewById(R.id.textView_detail);
 
-        tvData = (TextView)findViewById(R.id.SendJson_Result_TextView);
-        Button btn = (Button)findViewById(com.example.yb.testtalk.R.id.httpTest);
+        Send = (Button) view.findViewById(R.id.Button_append_detail);
 
-        //버튼이 클릭되면 여기 리스너로 옴
-        btn.setOnClickListener(new View.OnClickListener() {
+        Send.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                JSONTask task = new Insert_to_PatientInfo.JSONTask();
+                Patient_Insert_detailFragment.JSONTask task = new Patient_Insert_detailFragment.JSONTask();
                 task.execute(getResources().getString(R.string.register));
             }
         });
 
-        Info_More_details.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.Menu_Patient_Insert_frameLayout,new Patient_Insert_detailFragment()).commit();
-            }
-        });
+        return view;
     }
 
-    public class JSONTask extends AsyncTask<String, String, String>{
+    public class JSONTask extends AsyncTask<String, String, String> {
 
         @Override
         protected String doInBackground(String... urls) {
             try {
                 //JSONObject를 만들고 key value 형식으로 값을 저장해준다.
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate("id",Pin.getText().toString());
-                jsonObject.accumulate("name", name.getText().toString());
-                jsonObject.accumulate("age", age.getText().toString());
-                jsonObject.accumulate("telephone", telephone.getText().toString());
-                jsonObject.accumulate("Protector_Name", Protector_Name.getText().toString());
-                jsonObject.accumulate("Protector_Phone", Protector_Phone.getText().toString());
+                jsonObject.accumulate("id",temp.getText().toString());
+                jsonObject.accumulate("temp",temp.getText().toString());
+                jsonObject.accumulate("bpm", bpm.getText().toString());
+                jsonObject.accumulate("blood_pressure", press.getText().toString());
 
                 HttpURLConnection con = null;
                 BufferedReader reader = null;
@@ -141,7 +133,7 @@ public class Insert_to_PatientInfo extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            tvData.setText(result);//서버로 부터 받은 값을 출력해주는 부
+            resultRx.setText(result);//서버로 부터 받은 값을 출력해주는 부
         }
     }
 }
