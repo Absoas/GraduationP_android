@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.yb.testtalk.MenuActivity">
+
+    <include
+        layout="@layout/tool_bar"
+
+        />
+    <Button
+        android:id="@+id/menuButton_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="107dp"
+        android:text="Search" />
+
+    <Button
+        android:id="@+id/menuButton_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/menuButton_1"
+        android:layout_alignRight="@+id/menuButton_1"
+        android:layout_centerVertical="true"
+        android:text="Insert" />
+
+    <Button
+        android:id="@+id/menuButton_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/menuButton_2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/menuButton_2"
+        android:layout_marginBottom="101dp"
+        android:text="Chat" />
+</RelativeLayout>
