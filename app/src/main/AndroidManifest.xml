@@ -25,7 +25,6 @@
         <activity android:name=".Menu_Chat.MessageActivity" />
         <activity android:name=".MenuActivity" />
         <activity android:name=".menu.patientSearchMenu" />
-        <activity android:name=".menu.patientInsertMenu" />
         <activity android:name=".Menu_Search.Auto" />
         <activity android:name=".Menu_Insert.Insert_to_PatientInfo" />
         <activity android:name=".HttpJson.GetJson" />

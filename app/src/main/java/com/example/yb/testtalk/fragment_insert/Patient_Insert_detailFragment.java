@@ -28,7 +28,7 @@ import java.net.URL;
 
 public class Patient_Insert_detailFragment extends Fragment {
 
-    EditText pin,temp,bpm,press;
+    EditText respiration,pin,temp,bpm,blood_pressure,thrOther,Patient_Room;
     Button Send;
     TextView resultRx;
 
@@ -41,7 +41,11 @@ public class Patient_Insert_detailFragment extends Fragment {
         pin = (EditText) view.findViewById(R.id.Edit_patient_pin);
         temp = (EditText) view.findViewById(R.id.Edit_patient_temp);
         bpm = (EditText) view.findViewById(R.id.Edit_patient_bpm);
-        press = (EditText) view.findViewById(R.id.Edit_patient_press);
+        blood_pressure = (EditText) view.findViewById(R.id.Edit_patient_blood_pressure);
+        respiration = (EditText) view.findViewById(R.id.Edit_patient_respiration);
+        thrOther = (EditText) view.findViewById(R.id.Edit_patient_the_others);
+        Patient_Room = (EditText) view.findViewById(R.id.Edit_patient_Patient_Room);
+
         resultRx = (TextView) view.findViewById(R.id.textView_detail);
 
         Send = (Button) view.findViewById(R.id.Button_append_detail);
@@ -51,7 +55,7 @@ public class Patient_Insert_detailFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Patient_Insert_detailFragment.JSONTask task = new Patient_Insert_detailFragment.JSONTask();
-                task.execute(getResources().getString(R.string.register));
+                task.execute(getResources().getString(R.string.infoDetail));
             }
         });
 
@@ -65,10 +69,14 @@ public class Patient_Insert_detailFragment extends Fragment {
             try {
                 //JSONObject를 만들고 key value 형식으로 값을 저장해준다.
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.accumulate("id",temp.getText().toString());
+                jsonObject.accumulate("id",pin.getText().toString());
                 jsonObject.accumulate("temp",temp.getText().toString());
                 jsonObject.accumulate("bpm", bpm.getText().toString());
-                jsonObject.accumulate("blood_pressure", press.getText().toString());
+                jsonObject.accumulate("blood_pressure", blood_pressure.getText().toString());
+                jsonObject.accumulate("respiration", respiration.getText().toString());
+                jsonObject.accumulate("theOther", thrOther.getText().toString());
+                jsonObject.accumulate("Patient_Room", Patient_Room.getText().toString());
+
 
                 HttpURLConnection con = null;
                 BufferedReader reader = null;
