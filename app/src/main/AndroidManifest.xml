@@ -29,6 +29,8 @@
         <activity android:name=".Menu_Insert.Insert_to_PatientInfo" />
         <activity android:name=".HttpJson.GetJson" />
         <activity android:name=".Menu_Search.After_Search" />
+        <activity android:name=".HttpJson.GetpatientInfo"/>
+        <activity android:name=".HttpJson.PatientInfo"/>
 
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>

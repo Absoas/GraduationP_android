@@ -10,8 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.yb.testtalk.Menu_Insert.Insert_to_PatientInfo;
-import com.example.yb.testtalk.menu.patientSearchMenu;
+import com.example.yb.testtalk.HttpJson.GetJson;
+import com.example.yb.testtalk.HttpJson.GetpatientInfo;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -53,10 +53,6 @@ public class MenuActivity extends AppCompatActivity {
                     mArrayList.add(snapshot.getValue().toString());
                 }
 
-                // ArrayList 값 확인
-                for(int i = 0; i < mArrayList.size(); i++) {
-                    System.out.println("one index " + i + " : value " + mArrayList.get(i));
-                }
 
                 final String permission = mArrayList.get(0).toString();
                 final String userName = mArrayList.get(4).toString();
@@ -67,7 +63,7 @@ public class MenuActivity extends AppCompatActivity {
                         public void onClick(View v) {
                             if (permission.equals("간호사")) {
                                 Toast.makeText(MenuActivity.this, "안녕하세요. "+userName+" "+permission+"님", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(MenuActivity.this, patientSearchMenu.class);
+                                Intent intent = new Intent(MenuActivity.this, GetpatientInfo.class);
                                 startActivity(intent);
                             }else if(permission.equals("환자")){
                                 showDialog();
@@ -80,7 +76,7 @@ public class MenuActivity extends AppCompatActivity {
                         public void onClick(View v) {
                             if (permission.equals("간호사")) {
                                 Toast.makeText(MenuActivity.this, "안녕하세요. "+userName+" "+permission+"님", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(MenuActivity.this, Insert_to_PatientInfo.class);
+                                Intent intent = new Intent(MenuActivity.this, GetJson.class);
                                 startActivity(intent);
                             }else if(mArrayList.get(0).equals("환자")){
                                 showDialog();

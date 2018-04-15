@@ -24,6 +24,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:text="아이디" />
+
         <LinearLayout
             android:gravity="center|right"
             android:layout_width="match_parent"
