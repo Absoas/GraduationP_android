@@ -53,8 +53,8 @@ public class MenuActivity extends AppCompatActivity {
                 }
                 System.out.println(mArrayList);
 
-                  permission = mArrayList.get(0).toString();
-                  userName = mArrayList.get(3).toString();
+                  permission = mArrayList.get(1).toString();
+                  userName = mArrayList.get(0).toString();
 
 
                 menu_search.setOnClickListener(new View.OnClickListener() {

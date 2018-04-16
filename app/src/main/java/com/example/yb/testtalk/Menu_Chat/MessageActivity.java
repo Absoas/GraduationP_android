@@ -270,7 +270,7 @@ public class MessageActivity extends AppCompatActivity {
                         .load(destinationUserModel.profileImageUrl)
                         .apply(new RequestOptions().circleCrop())
                         .into(messageViewHolder.imageView_profile);
-                messageViewHolder.textview_name.setText(destinationUserModel.userName);
+                messageViewHolder.textview_name.setText(destinationUserModel.ausername);
                 messageViewHolder.linearLayout_destination.setVisibility(View.VISIBLE);
                 messageViewHolder.textView_message.setBackgroundResource(R.drawable.leftbubble);
                 messageViewHolder.textView_message.setText(comments.get(position).message);

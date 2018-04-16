@@ -50,6 +50,7 @@ public class Auto extends Activity {
     private static final String TAG_BLOOD_PRESSURE = "BLOOD_PRESSURE";
     private static final String TAG_THE_OTHERS = "THE_OTHERS";
 
+    HashMap<String, String> hashMap = new HashMap<>();
     ArrayList<HashMap<String, String>> mArrayList;
     ListView mlistView;
     String mJsonString;
@@ -109,7 +110,8 @@ public class Auto extends Activity {
                 }
 
                 System.out.println(txt.length);
-                String ch = TAG_NAME;
+                System.out.println();
+                String ch = "김용빈";
                 txtResult.setText(mResult);
 
                 for (int i = 0; i < results.size(); i++) {

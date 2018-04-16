@@ -1,13 +1,11 @@
 package com.example.yb.testtalk.fragment;
 
 
-
 import android.app.ActivityOptions;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,8 +16,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.yb.testtalk.R;
 import com.example.yb.testtalk.Menu_Chat.MessageActivity;
+import com.example.yb.testtalk.R;
 import com.example.yb.testtalk.model.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -100,7 +98,7 @@ public class PeopleFragment extends Fragment {
                     .load(userModels.get(position).profileImageUrl)
                     .apply(new RequestOptions().circleCrop())
                     .into(((CustomViewHolder)holder).imageView);
-            ((CustomViewHolder)holder).textView.setText(userModels.get(position).userName);
+            ((CustomViewHolder)holder).textView.setText(userModels.get(position).ausername);
 
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -94,7 +94,7 @@ public class SignupActivity extends AppCompatActivity {
                                         String imageUrl = task.getResult().getDownloadUrl().toString();
 
                                         UserModel userModel = new UserModel();
-                                        userModel.userName = name.getText().toString();
+                                        userModel.ausername = name.getText().toString();
                                         if(checkBox1.isChecked()){
                                             userModel.permission = "간호사";
                                         }else if(checkBox2.isChecked()){
