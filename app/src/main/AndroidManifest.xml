@@ -24,13 +24,13 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".Menu_Chat.MessageActivity" />
         <activity android:name=".MenuActivity" />
-        <activity android:name=".menu.patientSearchMenu" />
+        <activity android:name=".Menu_Search.patientSearchMenu" />
         <activity android:name=".Menu_Search.Auto" />
         <activity android:name=".Menu_Insert.Insert_to_PatientInfo" />
         <activity android:name=".HttpJson.GetJson" />
         <activity android:name=".Menu_Search.After_Search" />
         <activity android:name=".HttpJson.GetpatientInfo"/>
-        <activity android:name=".HttpJson.PatientInfo"/>
+        <activity android:name=".HttpJson.PatientInfoDetail"/>
 
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>

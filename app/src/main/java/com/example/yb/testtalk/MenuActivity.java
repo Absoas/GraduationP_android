@@ -5,13 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.yb.testtalk.HttpJson.GetJson;
-import com.example.yb.testtalk.HttpJson.GetpatientInfo;
+import com.example.yb.testtalk.Menu_Insert.Insert_to_PatientInfo;
+import com.example.yb.testtalk.Menu_Search.patientSearchMenu;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,7 +26,7 @@ public class MenuActivity extends AppCompatActivity {
     private DatabaseReference mdatabase;
     String uid;
     ArrayList<String> mArrayList = new ArrayList<String>();
-
+    String permission,userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +48,13 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Log.d("TempTest", "Single ValueEventListener : " + snapshot.getValue());
                     mArrayList.add(snapshot.getValue().toString());
+
                 }
+                System.out.println(mArrayList);
 
-
-                final String permission = mArrayList.get(0).toString();
-                final String userName = mArrayList.get(4).toString();
+                  permission = mArrayList.get(0).toString();
+                  userName = mArrayList.get(3).toString();
 
 
                 menu_search.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +62,7 @@ public class MenuActivity extends AppCompatActivity {
                         public void onClick(View v) {
                             if (permission.equals("간호사")) {
                                 Toast.makeText(MenuActivity.this, "안녕하세요. "+userName+" "+permission+"님", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(MenuActivity.this, GetpatientInfo.class);
+                                Intent intent = new Intent(MenuActivity.this, patientSearchMenu.class);
                                 startActivity(intent);
                             }else if(permission.equals("환자")){
                                 showDialog();
@@ -76,7 +75,7 @@ public class MenuActivity extends AppCompatActivity {
                         public void onClick(View v) {
                             if (permission.equals("간호사")) {
                                 Toast.makeText(MenuActivity.this, "안녕하세요. "+userName+" "+permission+"님", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(MenuActivity.this, GetJson.class);
+                                Intent intent = new Intent(MenuActivity.this, Insert_to_PatientInfo.class);
                                 startActivity(intent);
                             }else if(mArrayList.get(0).equals("환자")){
                                 showDialog();

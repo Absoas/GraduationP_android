@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.example.yb.testtalk.R;
 
-public class PatientInfo extends Activity {
+public class PatientInfoDetail extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

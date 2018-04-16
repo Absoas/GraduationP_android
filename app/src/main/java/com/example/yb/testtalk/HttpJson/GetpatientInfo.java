@@ -12,6 +12,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.example.yb.testtalk.Menu_Search.Auto;
 import com.example.yb.testtalk.R;
 
 import org.json.JSONArray;
@@ -186,7 +187,12 @@ public class GetpatientInfo extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(
                             getApplicationContext(), // 현재화면의 제어권자
-                            PatientInfo.class); // 다음넘어갈 화면
+                            PatientInfoDetail.class); // 다음넘어갈 화면
+
+                    Intent intent1 = new Intent(
+                            getApplicationContext(),
+                            Auto.class
+                    );
 
                     intent.putExtra("name", mArrayList.get(position).get(TAG_NAME));
                     intent.putExtra("age", mArrayList.get(position).get(TAG_AGE));
@@ -197,6 +203,9 @@ public class GetpatientInfo extends AppCompatActivity {
                     intent.putExtra("respiration", mArrayList.get(position).get(TAG_RESPIRATION));
                     intent.putExtra("press", mArrayList.get(position).get(TAG_BLOOD_PRESSURE));
                     intent.putExtra("others", mArrayList.get(position).get(TAG_THE_OTHERS));
+
+                    intent1.putExtra("name", mArrayList.get(position).get(TAG_NAME));
+
 
                     startActivity(intent);
                 }

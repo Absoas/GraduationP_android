@@ -16,8 +16,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.yb.testtalk.R;
 import com.example.yb.testtalk.Menu_Chat.MessageActivity;
+import com.example.yb.testtalk.R;
 import com.example.yb.testtalk.model.ChatModel;
 import com.example.yb.testtalk.model.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
@@ -175,6 +175,7 @@ public class ChatFragment extends Fragment {
             public TextView textView_timestamp;
 
             public CustomViewHolder(View view) {
+
                 super(view);
 
                 imageView = (ImageView) view.findViewById(R.id.chatitem_imageview);

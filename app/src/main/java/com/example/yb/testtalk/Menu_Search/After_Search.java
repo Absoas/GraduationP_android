@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.yb.testtalk.R;
-import com.example.yb.testtalk.fragment_info.first_PatientRoom;
 import com.example.yb.testtalk.fragment_info.second_PatientRoom;
 
 public class After_Search extends AppCompatActivity {
@@ -30,12 +29,7 @@ public class After_Search extends AppCompatActivity {
         Ssearch = (Button) findViewById(R.id.after_search2);
         // spinner = (Spinner) findViewById(R.id.after_search_spinner);
 
-        Fsearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.Search_fragment,new first_PatientRoom()).commit();
-            }
-        });
+
 
         Ssearch.setOnClickListener(new View.OnClickListener() {
             @Override

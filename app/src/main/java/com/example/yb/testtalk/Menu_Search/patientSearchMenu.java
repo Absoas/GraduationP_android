@@ -1,4 +1,4 @@
-package com.example.yb.testtalk.menu;
+package com.example.yb.testtalk.Menu_Search;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,8 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.yb.testtalk.Menu_Search.After_Search;
-import com.example.yb.testtalk.Menu_Search.Auto;
+import com.example.yb.testtalk.HttpJson.GetpatientInfo;
 import com.example.yb.testtalk.R;
 
 public class patientSearchMenu extends AppCompatActivity {
@@ -29,12 +28,14 @@ public class patientSearchMenu extends AppCompatActivity {
             }
         });
 
+
         Search_NotAuto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(patientSearchMenu.this, After_Search.class);
+                Intent intent = new Intent(patientSearchMenu.this, GetpatientInfo.class);
                 startActivity(intent);
             }
         });
+
     }
 }

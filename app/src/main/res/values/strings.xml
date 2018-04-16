@@ -5,10 +5,10 @@
     <string name="action_settings">Settings</string>
     <string name="str_start">Start</string>
     <string name="str_stop">Stop</string>
-    <string name="users">http://192.168.0.4:4000/users</string>
-    <string name="register">http://192.168.0.4:4000/register</string>
-    <string name="infoDetail">http://192.168.0.4:4000/infoDetail</string>
-    <string name="JoinSelect">http://192.168.0.4:4000/JoinSelect</string>
+    <string name="users">http://192.168.0.3:4000/users</string>
+    <string name="register">http://192.168.0.3:4000/register</string>
+    <string name="infoDetail">http://192.168.0.3:4000/infoDetail</string>
+    <string name="JoinSelect">http://192.168.0.3:4000/JoinSelect</string>
 
 
 </resources>
