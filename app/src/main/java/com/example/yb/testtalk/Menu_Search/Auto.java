@@ -328,7 +328,7 @@ public class Auto extends Activity {
                 String blood_pressure = item.getString(TAG_BLOOD_PRESSURE);
                 String the_others = item.getString(TAG_THE_OTHERS);
 
-                HashMap<String, String> hashMap = new HashMap<>();
+                
                 hashMap.put(TAG_NAME, name);
                 hashMap.put(TAG_AGE, age);
                 hashMap.put(TAG_ID, id);
