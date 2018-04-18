@@ -314,10 +314,10 @@ public class Auto extends Activity {
     public void showResult() {
         try {
             JSONArray jsonArray = new JSONArray(mJsonString);
-
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 JSONObject item = jsonArray.getJSONObject(i);
+
                 String name = item.getString(TAG_NAME);
                 String age = item.getString(TAG_AGE);
                 String id = item.getString(TAG_ID);
@@ -328,7 +328,6 @@ public class Auto extends Activity {
                 String blood_pressure = item.getString(TAG_BLOOD_PRESSURE);
                 String the_others = item.getString(TAG_THE_OTHERS);
 
-                
                 hashMap.put(TAG_NAME, name);
                 hashMap.put(TAG_AGE, age);
                 hashMap.put(TAG_ID, id);

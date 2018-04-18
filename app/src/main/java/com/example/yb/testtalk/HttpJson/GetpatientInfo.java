@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -12,7 +13,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import com.example.yb.testtalk.Menu_Search.Auto;
 import com.example.yb.testtalk.R;
 
 import org.json.JSONArray;
@@ -44,20 +44,38 @@ public class GetpatientInfo extends AppCompatActivity {
     ArrayList<HashMap<String, String>> mArrayList;
     ListView mlistView;
     String mJsonString;
+    private SwipeRefreshLayout swipeContainer;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.list_patient_info);
-
+        setContentView(R.layout.get_patient_info);
 
         mlistView = (ListView) findViewById(R.id.listView1);
-
         mArrayList = new ArrayList<>();
-
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
         GetpatientInfo.GetData task = new GetpatientInfo.GetData();
         task.execute(getResources().getString(R.string.JoinSelect));
+        // Setup refresh listener which triggers new data loading
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                GetpatientInfo.GetData task = new GetpatientInfo.GetData();
+                task.execute(getResources().getString(R.string.JoinSelect));
+
+            }
+        });
+
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
     }
 
 
@@ -87,7 +105,9 @@ public class GetpatientInfo extends AppCompatActivity {
             } else {
 
                 mJsonString = result;
+                mArrayList.clear();
                 showResult();
+                swipeContainer.setRefreshing(false);
             }
         }
 
@@ -181,6 +201,7 @@ public class GetpatientInfo extends AppCompatActivity {
                     new int[]{R.id.textView_list_id,R.id.textView_list_name, R.id.textView_list_age,R.id.textView_list_room}
             );
             mlistView.setAdapter(adapter);
+            swipeContainer.setRefreshing(false);
 
             mlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -188,11 +209,6 @@ public class GetpatientInfo extends AppCompatActivity {
                     Intent intent = new Intent(
                             getApplicationContext(), // 현재화면의 제어권자
                             PatientInfoDetail.class); // 다음넘어갈 화면
-
-                    Intent intent1 = new Intent(
-                            getApplicationContext(),
-                            Auto.class
-                    );
 
                     intent.putExtra("name", mArrayList.get(position).get(TAG_NAME));
                     intent.putExtra("age", mArrayList.get(position).get(TAG_AGE));
@@ -204,12 +220,10 @@ public class GetpatientInfo extends AppCompatActivity {
                     intent.putExtra("press", mArrayList.get(position).get(TAG_BLOOD_PRESSURE));
                     intent.putExtra("others", mArrayList.get(position).get(TAG_THE_OTHERS));
 
-                    intent1.putExtra("name", mArrayList.get(position).get(TAG_NAME));
-
-
                     startActivity(intent);
                 }
             });
+
 
         } catch (JSONException e) {
             Log.d(TAG, "showResult : ", e);

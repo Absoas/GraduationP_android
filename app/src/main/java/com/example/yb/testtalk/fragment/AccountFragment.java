@@ -31,6 +31,7 @@ public class AccountFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_account,container,false);
 
         Button button = (Button) view.findViewById(R.id.accoontFragment_button_comment);
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

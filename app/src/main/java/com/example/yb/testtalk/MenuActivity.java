@@ -9,8 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.yb.testtalk.HttpJson.realTimeGraph;
 import com.example.yb.testtalk.Menu_Insert.Insert_to_PatientInfo;
-import com.example.yb.testtalk.Menu_Search.patientSearchMenu;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -60,13 +60,14 @@ public class MenuActivity extends AppCompatActivity {
                 menu_search.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            if (permission.equals("간호사")) {
-                                Toast.makeText(MenuActivity.this, "안녕하세요. "+userName+" "+permission+"님", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(MenuActivity.this, patientSearchMenu.class);
-                                startActivity(intent);
-                            }else if(permission.equals("환자")){
-                                showDialog();
-                            }
+                            getFragmentManager().beginTransaction().replace(R.id.realtime_frame,new realTimeGraph()).commit();
+//                            if (permission.equals("간호사")) {
+//                                Toast.makeText(MenuActivity.this, "안녕하세요. "+userName+" "+permission+"님", Toast.LENGTH_SHORT).show();
+//                                Intent intent = new Intent(MenuActivity.this, patientSearchMenu.class);
+//                                startActivity(intent);
+//                            }else if(permission.equals("환자")){
+//                                showDialog();
+//                            }
                         }
                     });
 

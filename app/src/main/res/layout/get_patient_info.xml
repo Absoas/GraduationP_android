@@ -10,10 +10,19 @@
         android:text="환자를 클릭하세요."
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipeContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <ListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     </ListView>
+
+</android.support.v4.widget.SwipeRefreshLayout>
+
 
 </LinearLayout>

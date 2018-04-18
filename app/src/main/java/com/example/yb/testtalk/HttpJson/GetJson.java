@@ -3,6 +3,7 @@ package com.example.yb.testtalk.HttpJson;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListAdapter;
@@ -35,7 +36,7 @@ import java.util.HashMap;
 public class GetJson extends AppCompatActivity {
 
     private static String TAG = "SetJSon";
-
+    private SwipeRefreshLayout swipeContainer;
     private static final String TAG_TEMP = "TEMP";
     private static final String TAG_BPM = "BPM";
     private TextView mTextViewResult;
@@ -52,7 +53,6 @@ public class GetJson extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_getjson);
 
-
         mTextViewResult = (TextView)findViewById(R.id.textView_main_result);
         mlistView = (ListView) findViewById(R.id.listView_main_list);
         graph = (GraphView) findViewById(R.id.graph);
@@ -61,6 +61,21 @@ public class GetJson extends AppCompatActivity {
         mArrayList = new ArrayList<>();
         GetData task = new GetData();
         task.execute(getResources().getString(R.string.users));
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                GetData task = new GetData();
+                task.execute(getResources().getString(R.string.users));
+            }
+        });
+
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
     }
 
 
@@ -91,9 +106,11 @@ public class GetJson extends AppCompatActivity {
             }
             else {
 
+                mArrayList.clear();
                 mJsonString = result;
                 showResult();
                 showGraph();
+                swipeContainer.setRefreshing(false);
             }
         }
 
@@ -243,8 +260,4 @@ public class GetJson extends AppCompatActivity {
         graph1.getViewport().setScalableY(true);
 
     }
-
-
-
-
 }
