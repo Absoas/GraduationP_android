@@ -8,18 +8,13 @@
     android:layout_margin="15dp"
     android:padding="10dp">
 
-
-
-      <com.jjoe64.graphview.GraphView
+      <FrameLayout
+          android:id="@+id/frame_realtime"
           android:layout_width="match_parent"
-          android:layout_height="0dp"
-          android:layout_weight="4"
-          android:id="@+id/graph" />
+          android:layout_height="match_parent"
+          android:orientation="vertical">
 
-      <com.jjoe64.graphview.GraphView
-          android:layout_width="match_parent"
-          android:layout_height="0dp"
-          android:layout_weight="4"
-          android:id="@+id/graph1" />
+      </FrameLayout>
+
 
 </LinearLayout>

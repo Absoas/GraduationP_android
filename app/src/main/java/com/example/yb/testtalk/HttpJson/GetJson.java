@@ -3,16 +3,22 @@ package com.example.yb.testtalk.HttpJson;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.yb.testtalk.R;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
+import com.jjoe64.graphview.series.DataPointInterface;
 import com.jjoe64.graphview.series.LineGraphSeries;
+import com.jjoe64.graphview.series.OnDataPointTapListener;
+import com.jjoe64.graphview.series.Series;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,9 +34,9 @@ import java.util.HashMap;
 
 
 public class GetJson extends AppCompatActivity {
-    private Runnable mTimer;
-    private final Handler mHandler = new Handler();
+
     private static String TAG = "SetJSon";
+    private SwipeRefreshLayout swipeContainer;
     private static final String TAG_TEMP = "TEMP";
     private static final String TAG_BPM = "BPM";
     private TextView mTextViewResult;
@@ -40,9 +46,6 @@ public class GetJson extends AppCompatActivity {
     GraphView graph,graph1;
     double[] Jsontemp = new double[100];
     int[] Jsonbpm = new int[100];
-    LineGraphSeries<DataPoint> series;
-    LineGraphSeries<DataPoint> series1;
-
 
 
     @Override
@@ -50,22 +53,29 @@ public class GetJson extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_getjson);
 
-        mTextViewResult = (TextView) findViewById(R.id.textView_main_result);
+        mTextViewResult = (TextView)findViewById(R.id.textView_main_result);
         mlistView = (ListView) findViewById(R.id.listView_main_list);
-
         graph = (GraphView) findViewById(R.id.graph);
         graph1 = (GraphView) findViewById(R.id.graph1);
-
-        series = new LineGraphSeries<>(generateData());
-        series1 = new LineGraphSeries<>(generateData1());
-
-        graph.addSeries(series);
-        graph.addSeries(series1);
 
         mArrayList = new ArrayList<>();
         GetData task = new GetData();
         task.execute(getResources().getString(R.string.users));
 
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                GetData task = new GetData();
+                task.execute(getResources().getString(R.string.users));
+            }
+        });
+
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
     }
 
 
@@ -96,7 +106,11 @@ public class GetJson extends AppCompatActivity {
             }
             else {
 
+                mArrayList.clear();
                 mJsonString = result;
+                showResult();
+                showGraph();
+                swipeContainer.setRefreshing(false);
             }
         }
 
@@ -155,74 +169,68 @@ public class GetJson extends AppCompatActivity {
     }
 
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mTimer = new Runnable() {
-            @Override
-            public void run() {
-                series.resetData(generateData());
-                mHandler.postDelayed(this, 300);
-            }
-        };
-        mHandler.postDelayed(mTimer, 300);
-
-    }
-
-    @Override
-    public void onPause() {
-        mHandler.removeCallbacks(mTimer);
-        super.onPause();
-    }
-
-    public DataPoint[] generateData() {
+    public void showResult(){
         try {
             JSONArray jsonArray = new JSONArray(mJsonString);
 
             int list_cnt = jsonArray.length();
-            System.out.println(list_cnt);
 
-            DataPoint[] points = new DataPoint[list_cnt];
+            Jsonbpm = new int[list_cnt];
+            Jsontemp = new double[list_cnt];
 
-            for (int i = 0; i < jsonArray.length(); i++) {
+            for(int i=0;i<jsonArray.length();i++){
+
                 JSONObject item = jsonArray.getJSONObject(i);
+                String temp = item.getString(TAG_TEMP);
+                String bpm = item.getString(TAG_BPM);
 
-                double Jsontemp = item.getDouble(TAG_TEMP);
-                DataPoint v = new DataPoint(i, Jsontemp);
+                Jsontemp[i] = item.getDouble(TAG_TEMP);
+                Jsonbpm[i] = item.getInt(TAG_BPM);
 
-                points[i] = v;
+                HashMap<String,String> hashMap = new HashMap<>();
+                hashMap.put(TAG_TEMP, temp);
+                hashMap.put(TAG_BPM, bpm);
+                mArrayList.add(hashMap);
             }
-            return points;
-        }
-        catch (JSONException e) {
-            Log.d(TAG, "showResult : ", e);
 
-        }
-        return new DataPoint[0];
-    }
-
-    public DataPoint[] generateData1() {
-        try {
-            JSONArray jsonArray = new JSONArray(mJsonString);
-            int list_cnt = jsonArray.length();
-
-            DataPoint[] points = new DataPoint[list_cnt];
-
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject item = jsonArray.getJSONObject(i);
-
-                int Jsonbpm = item.getInt(TAG_BPM);
-                DataPoint v = new DataPoint(i, Jsonbpm);
-
-                points[i] = v;
+            DataPoint[] points = new DataPoint[Jsontemp.length];
+            for(int i=0; i<Jsontemp.length; i++){
+                points[i] = new DataPoint(i,Jsontemp[i]);
             }
-            return points;
-        }
-        catch (JSONException e) {
-            Log.d(TAG, "showResult : ", e);
+            LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
 
+            DataPoint[] points1 = new DataPoint[Jsonbpm.length];
+            for(int i=0; i<Jsonbpm.length; i++){
+                points1[i] = new DataPoint(i,Jsonbpm[i]);
+            }LineGraphSeries<DataPoint> series1 = new LineGraphSeries<>(points1);
+
+            series.setOnDataPointTapListener(new OnDataPointTapListener() {
+                @Override
+                public void onTap(Series series, DataPointInterface dataPoint) {
+                    Toast.makeText(GetJson.this, "Series1: On Data Point clicked: "+dataPoint, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            series1.setOnDataPointTapListener(new OnDataPointTapListener() {
+                @Override
+                public void onTap(Series series, DataPointInterface dataPoint) {
+                    Toast.makeText(GetJson.this, "Series1: On Data Point clicked: "+dataPoint, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            graph.addSeries(series);
+            graph1.addSeries(series1);
+
+            ListAdapter adapter = new SimpleAdapter(
+                    GetJson.this, mArrayList, R.layout.list_item,
+                    new String[]{TAG_TEMP, TAG_BPM},
+                    new int[]{R.id.textView_list_temp, R.id.textView_list_bpm}
+            );
+            //mlistView.setAdapter(adapter);
+
+        } catch (JSONException e) {
+            Log.d(TAG, "showResult : ", e);
         }
-        return new DataPoint[0];
     }
 
     public void showGraph(){

@@ -9,11 +9,6 @@
     android:padding="10dp">
 
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/swipeContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
         <ListView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -42,6 +37,5 @@
             android:layout_weight="4"
             android:id="@+id/graph1" />
 
-    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

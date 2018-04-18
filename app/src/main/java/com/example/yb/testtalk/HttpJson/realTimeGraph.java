@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,7 +30,8 @@ import java.util.HashMap;
 
 
 public class realTimeGraph extends Fragment {
-
+    private Runnable mTimer;
+    private final Handler mHandler = new Handler();
     private static String TAG = "SetJSon";
     private static final String TAG_TEMP = "TEMP";
     private static final String TAG_BPM = "BPM";
@@ -44,7 +46,7 @@ public class realTimeGraph extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.realtime_test, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_realtime, container, false);
 
         graph = (GraphView) rootView.findViewById(R.id.graph);
         graph1 = (GraphView) rootView.findViewById(R.id.graph1);
@@ -137,6 +139,27 @@ public class realTimeGraph extends Fragment {
         }
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mTimer = new Runnable() {
+            @Override
+            public void run() {
+                series.resetData(generateData());
+                mHandler.postDelayed(this, 300);
+            }
+        };
+        mHandler.postDelayed(mTimer, 300);
+
+    }
+
+    @Override
+    public void onPause() {
+        mHandler.removeCallbacks(mTimer);
+        super.onPause();
+    }
+
     public DataPoint[] generateData() {
         try {
             JSONArray jsonArray = new JSONArray(mJsonString);
@@ -184,29 +207,6 @@ public class realTimeGraph extends Fragment {
         }
         return new DataPoint[0];
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public void showGraph(){
 

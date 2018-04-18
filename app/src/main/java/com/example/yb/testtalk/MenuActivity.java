@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.yb.testtalk.HttpJson.realTimeGraph;
+import com.example.yb.testtalk.HttpJson.GetJson;
 import com.example.yb.testtalk.Menu_Insert.Insert_to_PatientInfo;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -51,7 +51,6 @@ public class MenuActivity extends AppCompatActivity {
                     mArrayList.add(snapshot.getValue().toString());
 
                 }
-                System.out.println(mArrayList);
 
                   permission = mArrayList.get(1).toString();
                   userName = mArrayList.get(0).toString();
@@ -60,14 +59,14 @@ public class MenuActivity extends AppCompatActivity {
                 menu_search.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            getFragmentManager().beginTransaction().replace(R.id.realtime_frame,new realTimeGraph()).commit();
-//                            if (permission.equals("간호사")) {
-//                                Toast.makeText(MenuActivity.this, "안녕하세요. "+userName+" "+permission+"님", Toast.LENGTH_SHORT).show();
-//                                Intent intent = new Intent(MenuActivity.this, patientSearchMenu.class);
-//                                startActivity(intent);
-//                            }else if(permission.equals("환자")){
-//                                showDialog();
-//                            }
+
+                            if (permission.equals("간호사")) {
+                                Toast.makeText(MenuActivity.this, "안녕하세요. "+userName+" "+permission+"님", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(MenuActivity.this, GetJson.class);
+                                startActivity(intent);
+                            }else if(permission.equals("환자")){
+                                showDialog();
+                            }
                         }
                     });
 
