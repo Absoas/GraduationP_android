@@ -42,18 +42,16 @@ public class MenuActivity extends AppCompatActivity {
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();  //채팅을 요구 하는 아아디 즉 단말기에 로그인된 UID
         mdatabase = FirebaseDatabase.getInstance().getReference();
 
-
-        // 데이터베이스 읽기 #2. Single ValueEventListener
-        FirebaseDatabase.getInstance().getReference("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() { //DB의 users 하위 uid에 있는 데이터 중
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    mArrayList.add(snapshot.getValue().toString());
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 모든 데이터를 돔
+                    mArrayList.add(snapshot.getValue().toString()); // 배열에 데이터 넣음
 
                 }
 
-                  permission = mArrayList.get(1).toString();
-                  userName = mArrayList.get(0).toString();
+                  permission = mArrayList.get(1).toString(); // permission 환자 인지 간호사인지 체크
+                  userName = mArrayList.get(0).toString();  // 이름 체크
 
 
                 menu_search.setOnClickListener(new View.OnClickListener() {

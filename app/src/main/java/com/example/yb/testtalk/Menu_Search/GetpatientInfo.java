@@ -1,4 +1,4 @@
-package com.example.yb.testtalk.HttpJson;
+package com.example.yb.testtalk.Menu_Search;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -62,7 +62,7 @@ public class GetpatientInfo extends AppCompatActivity {
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh() {
+            public void onRefresh() { // 새로고침 하고 싶은 코드를 이 함수 안에 넣는다.
 
                 GetpatientInfo.GetData task = new GetpatientInfo.GetData();
                 task.execute(getResources().getString(R.string.JoinSelect));
@@ -70,7 +70,7 @@ public class GetpatientInfo extends AppCompatActivity {
             }
         });
 
-        // Configure the refreshing colors
+        // 새로고침 표시 색깔 변화
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
