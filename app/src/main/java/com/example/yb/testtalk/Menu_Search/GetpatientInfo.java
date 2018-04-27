@@ -47,7 +47,6 @@ public class GetpatientInfo extends AppCompatActivity {
     private SwipeRefreshLayout swipeContainer;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,9 +55,11 @@ public class GetpatientInfo extends AppCompatActivity {
         mlistView = (ListView) findViewById(R.id.listView1);
         mArrayList = new ArrayList<>();
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+
+
+
         GetpatientInfo.GetData task = new GetpatientInfo.GetData();
         task.execute(getResources().getString(R.string.JoinSelect));
-        // Setup refresh listener which triggers new data loading
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -76,7 +77,12 @@ public class GetpatientInfo extends AppCompatActivity {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
+
+
     }
+
+
+
 
 
     private class GetData extends AsyncTask<String, Void, String> {
@@ -229,5 +235,35 @@ public class GetpatientInfo extends AppCompatActivity {
             Log.d(TAG, "showResult : ", e);
         }
     }
+
+//    Handler handler = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            updateThread();
+//        }
+//    };
+//
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        Thread myThread = new Thread(new Runnable() {
+//            public void run() {
+//                while (true) {
+//                    try {
+//                        handler.sendMessage(handler.obtainMessage());
+//                        Thread.sleep(1000);
+//                    } catch (Throwable t) {
+//                    }
+//                }
+//            }
+//        });
+//
+//        myThread.start();
+//    }
+//
+//    private void updateThread() {
+//    }
+
+
 
 }

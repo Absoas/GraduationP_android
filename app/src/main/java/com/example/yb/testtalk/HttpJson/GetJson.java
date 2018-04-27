@@ -31,6 +31,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class GetJson extends AppCompatActivity {
@@ -59,8 +61,18 @@ public class GetJson extends AppCompatActivity {
         graph1 = (GraphView) findViewById(R.id.graph1);
 
         mArrayList = new ArrayList<>();
-        GetData task = new GetData();
-        task.execute(getResources().getString(R.string.users));
+
+        TimerTask adTast = new TimerTask() {
+
+            public void run() {
+                GetData task = new GetData();
+                task.execute(getResources().getString(R.string.users));
+            }
+        };
+
+        Timer timer = new Timer();
+        timer.schedule(adTast, 0, 3000); // 0초후 첫실행, 3초마다 계속실행
+
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

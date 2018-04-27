@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +44,7 @@ public class PatientInfoDetail extends Activity {
     GraphView graph,graph1;
     double[] Jsontemp = new double[100];
     int[] Jsonbpm = new int[100];
+    Button Infusion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,10 +77,19 @@ public class PatientInfoDetail extends Activity {
         mlistView = (ListView) findViewById(R.id.listView_main_list);
         graph = (GraphView) findViewById(R.id.graph);
         graph1 = (GraphView) findViewById(R.id.graph1);
+        Infusion = (Button) findViewById(R.id.Infusion_detail);
 
         mArrayList = new ArrayList<>();
         PatientInfoDetail.GetData task = new PatientInfoDetail.GetData();
         task.execute(getResources().getString(R.string.users));
+
+        Infusion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PatientInfoDetail.this, Infusion_detail.class);
+                startActivity(intent);
+            }
+        });
 
     }
     private class GetData extends AsyncTask<String, Void, String> {
