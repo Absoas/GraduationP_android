@@ -4,11 +4,13 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -24,12 +26,17 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class GetpatientInfo extends AppCompatActivity {
 
     private static String TAG = "Get_PatientInfo";
+
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    String time;
 
     private static final String TAG_NAME = "NAME";
     private static final String TAG_AGE = "AGE";
@@ -53,6 +60,7 @@ public class GetpatientInfo extends AppCompatActivity {
         setContentView(R.layout.get_patient_info);
 
         mlistView = (ListView) findViewById(R.id.listView1);
+
         mArrayList = new ArrayList<>();
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
 
@@ -77,11 +85,7 @@ public class GetpatientInfo extends AppCompatActivity {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-
-
     }
-
-
 
 
 

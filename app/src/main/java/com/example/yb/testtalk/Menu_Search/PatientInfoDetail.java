@@ -2,9 +2,11 @@ package com.example.yb.testtalk.Menu_Search;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.yb.testtalk.MenuActivity;
 import com.example.yb.testtalk.R;
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.series.DataPoint;
@@ -25,9 +28,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,12 +47,14 @@ public class PatientInfoDetail extends Activity {
     private static final String TAG_BPM = "BPM";
     private TextView mTextViewResult;
     ArrayList<HashMap<String, String>> mArrayList;
+    Button delete;
     ListView mlistView;
     String mJsonString;
     GraphView graph,graph1;
     double[] Jsontemp = new double[100];
     int[] Jsonbpm = new int[100];
     Button Infusion;
+    String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +73,8 @@ public class PatientInfoDetail extends Activity {
 
         Intent intent = getIntent(); // 보내온 Intent를 얻는다
 
+        id = intent.getStringExtra("id");
+
         tvID.setText(intent.getStringExtra("id"));
         tvNAME.setText(intent.getStringExtra("name"));
         tvage.setText(intent.getStringExtra("age"));
@@ -78,10 +90,21 @@ public class PatientInfoDetail extends Activity {
         graph = (GraphView) findViewById(R.id.graph);
         graph1 = (GraphView) findViewById(R.id.graph1);
         Infusion = (Button) findViewById(R.id.Infusion_detail);
+        delete = (Button) findViewById(R.id.delete_button);
 
         mArrayList = new ArrayList<>();
         PatientInfoDetail.GetData task = new PatientInfoDetail.GetData();
         task.execute(getResources().getString(R.string.users));
+
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                alertdialog();
+
+
+            }
+        });
 
         Infusion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +114,10 @@ public class PatientInfoDetail extends Activity {
             }
         });
 
+
     }
+
+
     private class GetData extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
         String errorString = null;
@@ -177,6 +203,82 @@ public class PatientInfoDetail extends Activity {
                 errorString = e.toString();
                 return null;
             }
+        }
+    }
+
+    public class JSONTask extends AsyncTask<String, String, String> {
+
+        @Override
+        protected String doInBackground(String... urls) {
+            try {
+                //JSONObject를 만들고 key value 형식으로 값을 저장해준다.
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.accumulate("id",id);
+
+
+                HttpURLConnection con = null;
+                BufferedReader reader = null;
+
+                try{
+                    URL url = new URL(urls[0]);
+                    //연결을 함
+                    con = (HttpURLConnection) url.openConnection();
+
+                    con.setRequestMethod("POST");//POST방식으로 보냄
+                    con.setRequestProperty("Cache-Control", "no-cache");//캐시 설정
+                    con.setRequestProperty("Content-Type", "application/json");//application JSON 형식으로 전송
+                    con.setRequestProperty("Accept", "text/html");//서버에 response 데이터를 html로 받음
+                    con.setDoOutput(true);//Outstream으로 post 데이터를 넘겨주겠다는 의미
+                    con.setDoInput(true);//Inputstream으로 서버로부터 응답을 받겠다는 의미
+                    con.connect();
+
+                    //서버로 보내기위해서 스트림 만듬
+                    OutputStream outStream = con.getOutputStream();
+                    //버퍼를 생성하고 넣음
+                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outStream));
+                    writer.write(jsonObject.toString());
+                    writer.flush();
+                    writer.close();//버퍼를 받아줌
+
+                    //서버로 부터 데이터를 받음
+                    InputStream stream = con.getInputStream();
+
+                    reader = new BufferedReader(new InputStreamReader(stream));
+
+                    StringBuffer buffer = new StringBuffer();
+
+                    String line = "";
+                    while((line = reader.readLine()) != null){
+                        buffer.append(line);
+                    }
+
+                    return buffer.toString();//서버로 부터 받은 값을 리턴해줌 아마 OK!!가 들어올것임
+
+                } catch (MalformedURLException e){
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    if(con != null){
+                        con.disconnect();
+                    }
+                    try {
+                        if(reader != null){
+                            reader.close();//버퍼를 닫아줌
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
         }
     }
 
@@ -266,5 +368,25 @@ public class PatientInfoDetail extends Activity {
         graph1.getViewport().setScalable(true);
         graph1.getViewport().setScalableY(true);
 
+    }
+
+    void alertdialog(){
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Wellfare")
+                .setMessage("데이터를 정말 삭제하시겠습니까??")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        PatientInfoDetail.JSONTask task1 = new PatientInfoDetail.JSONTask();
+                        task1.execute(getResources().getString(R.string.delete));
+                        Toast.makeText(PatientInfoDetail.this, "식별번호 "+id+" 번 환자분의 데이터가 사라졌습니다.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(PatientInfoDetail.this, MenuActivity.class);
+                        startActivity(intent);}
+
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 } // end of onCreate

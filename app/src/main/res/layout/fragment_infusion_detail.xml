@@ -15,7 +15,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/Edit_patient_pin"
+                android:id="@+id/Edit_Infusionpatient_pin"
                 android:hint="식별 번호"/>
         </android.support.design.widget.TextInputLayout>
 
@@ -32,8 +32,8 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/Edit_patient_Patient_Room"
-                android:hint="Patient_Room"/>
+                android:id="@+id/Edit_patient_Infusion"
+                android:hint="수액 종류"/>
         </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
@@ -50,8 +50,8 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/Edit_patient_blood_pressure"
-                android:hint="blood_pressure"/>
+                android:id="@+id/Edit_patient_totalamount"
+                android:hint="총량"/>
         </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
@@ -67,60 +67,8 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/Edit_patient_respiration"
-                android:hint="호흡"/>
-        </android.support.design.widget.TextInputLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/Edit_patient_bpm"
-                android:hint="BPM"/>
-        </android.support.design.widget.TextInputLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/Edit_patient_temp"
-                android:hint="체온"/>
-        </android.support.design.widget.TextInputLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:id="@+id/Edit_patient_the_others"
-                android:hint="the_others"/>
-
+                android:id="@+id/Edit_patient_disease"
+                android:hint="관련 질환"/>
         </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
@@ -129,20 +77,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
         <Button
             android:layout_gravity="center"
-            android:id="@+id/Button_append_detail"
+            android:id="@+id/Button_Infusion_append_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="등록"/>
 
         <TextView
+            android:layout_gravity="center"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="등록하려는 환자의 식별번호와 일치하여야합니다. "
-            android:id="@+id/textView_detail"/>
+            android:id="@+id/textView_detail1"/>
+
 
     </LinearLayout>
 </LinearLayout>

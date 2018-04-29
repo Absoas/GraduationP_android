@@ -1,30 +1,30 @@
 package com.example.yb.testtalk.fragment_insert;
 
-import android.app.Fragment;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+        import android.app.Fragment;
+        import android.os.AsyncTask;
+        import android.os.Bundle;
+        import android.support.annotation.Nullable;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.widget.Button;
+        import android.widget.EditText;
+        import android.widget.TextView;
 
-import com.example.yb.testtalk.R;
+        import com.example.yb.testtalk.R;
 
-import org.json.JSONObject;
+        import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+        import java.io.BufferedReader;
+        import java.io.BufferedWriter;
+        import java.io.IOException;
+        import java.io.InputStream;
+        import java.io.InputStreamReader;
+        import java.io.OutputStream;
+        import java.io.OutputStreamWriter;
+        import java.net.HttpURLConnection;
+        import java.net.MalformedURLException;
+        import java.net.URL;
 
 public class Patient_Insert_detailFragment extends Fragment {
 
