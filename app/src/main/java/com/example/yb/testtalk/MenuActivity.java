@@ -37,8 +37,6 @@ public class MenuActivity extends AppCompatActivity {
         menu_insert= (Button) findViewById(R.id.menuButton_2);
         menu_chatting= (Button) findViewById(R.id.menuButton_3);
 
-
-
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();  //채팅을 요구 하는 아아디 즉 단말기에 로그인된 UID
         mdatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -47,50 +45,48 @@ public class MenuActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) { // 모든 데이터를 돔
                     mArrayList.add(snapshot.getValue().toString()); // 배열에 데이터 넣음
-
                 }
 
-                  permission = mArrayList.get(1).toString(); // permission 환자 인지 간호사인지 체크
-                  userName = mArrayList.get(0).toString();  // 이름 체크
-
+                permission = mArrayList.get(1).toString(); // permission 환자 인지 간호사인지 체크
+                userName = mArrayList.get(0).toString();  // 이름 체크
 
                 menu_search.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
+                    @Override
+                    public void onClick(View v) {
 
-                            if (permission.equals("간호사")) {
-                                Toast.makeText(MenuActivity.this, "안녕하세요. "+userName+" "+permission+"님", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(MenuActivity.this, patientSearchMenu.class);
-                                startActivity(intent);
-                            }else if(permission.equals("환자")){
-                                showDialog();
-                            }
+                        if (permission.equals("간호사")) {
+                            Toast.makeText(MenuActivity.this, "안녕하세요. "+userName+" "+permission+"님", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MenuActivity.this, patientSearchMenu.class);
+                            startActivity(intent);
+                        }else if(permission.equals("환자")){
+                            showDialog();
                         }
-                    });
+                    }
+                });
 
-                    menu_insert.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (permission.equals("간호사")) {
-                                Toast.makeText(MenuActivity.this, "안녕하세요. "+userName+" "+permission+"님", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(MenuActivity.this, Insert_to_PatientInfo.class);
-                                startActivity(intent);
-                            }else if(mArrayList.get(0).equals("환자")){
-                                showDialog();
-                            }
+                menu_insert.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (permission.equals("간호사")) {
+                            Toast.makeText(MenuActivity.this, "안녕하세요. "+userName+" "+permission+"님", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MenuActivity.this, Insert_to_PatientInfo.class);
+                            startActivity(intent);
+                        }else if(permission.equals("환자")){
+                            showDialog();
                         }
-                    });
+                    }
+                });
 
-                    menu_chatting.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (permission.equals("간호사") || permission.equals("환자")) {
-                                Toast.makeText(MenuActivity.this, "안녕하세요. "+userName+" "+permission+"님", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(MenuActivity.this, MainActivity.class);
-                                startActivity(intent);
-                            }
+                menu_chatting.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (permission.equals("간호사") || permission.equals("환자")) {
+                            Toast.makeText(MenuActivity.this, "안녕하세요. "+userName+" "+permission+"님", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MenuActivity.this, MainActivity.class);
+                            startActivity(intent);
                         }
-                    });
+                    }
+                });
             }
 
             @Override

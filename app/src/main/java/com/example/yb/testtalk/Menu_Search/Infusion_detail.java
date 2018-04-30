@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -36,6 +37,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -47,19 +50,28 @@ import okhttp3.Response;
 
 public class Infusion_detail extends AppCompatActivity {
 
-    TextView speed,remain_amount, remain_time, total_amount, infusion_name;
+    TextView speed, remain_amount, remain_time, total_amount, infusion_name, infusion_disease;
+    Button start;
 
     private static String TAG = "Get_Infusion_detail";
     private UserModel destinationUserModel;
-    private static final String TAG_I_NAME = "NAME";
-    private static final String TAG_R_AMOUNT = "REMAINAMOUNT";
+
+    static double infusion_speed = 0.33;
+
+    double infusion_total;
+    String name, total, disease;
+    private static final String TAG_ID = "ID";
+    private static final String TAG_I_NAME = "INFUSION_NAME";
+    private static final String TAG_T_AMOUNT = "INFUSION_TOTAL_AMOUNT";
+    private static final String TAG_DISEASE = "DISEASE";
     private static final String TAG_REMAIN_TIME = "REMAINTIME";
-    private static final String TAG_T_AMOUNT = "TOTALAMOUNT";
+    private static final String TAG_R_AMOUNT = "TOTALAMOUNT";
     private static final String TAG_SPEED = "SPEED";
-   // ProgressHandler handler;
+    // ProgressHandler handler;
 
     ArrayList<HashMap<String, String>> mArrayList;
     String mJsonString;
+    private AsyncTask<Void, Void, Void> mTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,44 +79,54 @@ public class Infusion_detail extends AppCompatActivity {
         setContentView(R.layout.activity_infusion_detail);
         mArrayList = new ArrayList<>();
 
+        start = (Button) findViewById(R.id.btn_infusion_start);
         speed = (TextView) findViewById(R.id.motor_speed);
-        remain_amount=(TextView) findViewById(R.id.Infusion_remain_amount);
+        remain_amount = (TextView) findViewById(R.id.Infusion_remain_amount);
         remain_time = (TextView) findViewById(R.id.Infusion_remain_time);
         total_amount = (TextView) findViewById(R.id.Infusion_total_amount);
         infusion_name = (TextView) findViewById(R.id.Infusion_name);
+        infusion_disease = (TextView) findViewById(R.id.infusion_disease);
 
         Infusion_detail.GetData task = new Infusion_detail.GetData();
-        task.execute(getResources().getString(R.string.Infusion));
+        task.execute(getResources().getString(R.string.infusionSelect));
 
+        start.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Thread thread = new Thread(runnable);
+                thread.start();
+            }
+        });
     }
-//    public void runTime(){
-//        Thread thread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                while (true){
-//                    Infusion_detail.GetData task = new Infusion_detail.GetData();
-//                    task.execute(getResources().getString(R.string.Infusion));
-//                    Message message = handler.obtainMessage();
-//                    handler.sendMessage(message);
-//                    try{
-//                        Thread.sleep(1000);
-//                    }catch (InterruptedException ex) {}
-//                }
-//            }
-//        });
-//        thread.start();
-//
-//    }
-//
-//    class ProgressHandler extends Handler {
-//        @Override
-//        public void handleMessage(Message msg) {
-//            showResult();
-//        }
-//    }
 
 
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    handler.sendMessage(handler.obtainMessage());
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
+
+
+    Handler handler = new Handler() { // 메인에서 생성한 핸들러
+
+        @Override
+        public void handleMessage(Message msg) {
+
+            infusion_total = infusion_total - infusion_speed;
+            String num = String.format("%.2f" , infusion_total);
+
+            remain_amount.setText(String.valueOf(num));
+
+        } // end handleMessage
+    };
 
     private class GetData extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
@@ -197,20 +219,35 @@ public class Infusion_detail extends AppCompatActivity {
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 JSONObject item = jsonArray.getJSONObject(i);
-                String name = item.getString(TAG_I_NAME);
-                String age = item.getString(TAG_R_AMOUNT);
+                name = item.getString(TAG_I_NAME);
+                total = item.getString(TAG_T_AMOUNT);
+                disease = item.getString(TAG_DISEASE);
+                String id = item.getString(TAG_ID);
+
+                infusion_total = item.getInt(TAG_T_AMOUNT);
+                System.out.println(infusion_total);
+
 
                 HashMap<String, String> hashMap = new HashMap<>();
                 hashMap.put(TAG_I_NAME, name);
-                hashMap.put(TAG_R_AMOUNT, age);
+                hashMap.put(TAG_T_AMOUNT, total);
+                hashMap.put(TAG_ID, id);
+                hashMap.put(TAG_DISEASE, disease);
+
+                infusion_name.setText(name);
+                infusion_disease.setText(disease);
+                total_amount.setText(total + "mL");
+                speed.setText(infusion_speed + "ML/s");
+
                 mArrayList.add(hashMap);
             }
+
+
         } catch (JSONException e) {
             Log.d(TAG, "showResult : ", e);
         }
     }
 
-//
 //    void sendGcm() {
 //
 //        Gson gson = new Gson();

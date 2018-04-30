@@ -56,4 +56,5 @@ public class MainActivity extends AppCompatActivity {
         map.put("pushToken",token);
         FirebaseDatabase.getInstance().getReference().child("users").child(uid).updateChildren(map);
     }
+
 }

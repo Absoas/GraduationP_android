@@ -5,10 +5,11 @@
     <string name="action_settings">Settings</string>
     <string name="str_start">Start</string>
     <string name="str_stop">Stop</string>
-    <string name="users">http://192.168.0.3:4000/users</string>
-    <string name="register">http://192.168.0.3:4000/register</string>
-    <string name="infoDetail">http://192.168.0.3:4000/infoDetail</string>
-    <string name="JoinSelect">http://192.168.0.3:4000/JoinSelect</string>
-    <string name="Infusion">http://192.168.0.3:4000/infusion</string>
-    <string name="delete">http://192.168.0.3:4000/delete</string>
+    <string name="users">http://192.168.0.5:4000/users</string>
+    <string name="register">http://192.168.0.5:4000/register</string>
+    <string name="infoDetail">http://192.168.0.5:4000/infoDetail</string>
+    <string name="JoinSelect">http://192.168.0.5:4000/JoinSelect</string>
+    <string name="Infusion">http://192.168.0.5:4000/infusion</string>
+    <string name="delete">http://192.168.0.5:4000/delete</string>
+    <string name="infusionSelect">http://192.168.0.5:4000/infusionSelect</string>
 </resources>

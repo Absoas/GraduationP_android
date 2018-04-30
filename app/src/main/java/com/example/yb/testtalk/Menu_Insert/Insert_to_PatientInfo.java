@@ -31,6 +31,7 @@ public class Insert_to_PatientInfo extends AppCompatActivity {
     EditText Pin,name,age,telephone,Protector_Name,Protector_Phone;
     Button Info_More_details, infusion_more_details;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

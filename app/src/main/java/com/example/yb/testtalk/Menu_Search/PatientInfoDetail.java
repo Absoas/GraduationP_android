@@ -99,10 +99,7 @@ public class PatientInfoDetail extends Activity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 alertdialog();
-
-
             }
         });
 
@@ -129,7 +126,6 @@ public class PatientInfoDetail extends Activity {
             progressDialog = ProgressDialog.show(PatientInfoDetail.this,
                     "Please Wait", null, true, true);
         }
-
 
         @Override
         protected void onPostExecute(String result) {

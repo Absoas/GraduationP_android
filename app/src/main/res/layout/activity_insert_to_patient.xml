@@ -131,24 +131,8 @@
 
             </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
 
-            <FrameLayout
-                android:id="@+id/Infusion_Insert_frameLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@+id/insert_to_frameLayout"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"></FrameLayout>
-
-        </LinearLayout>
     </LinearLayout>
-
-
 
     <LinearLayout
         android:id="@+id/insert_Linearlayout"
@@ -166,4 +150,24 @@
             android:layout_alignParentTop="true"></FrameLayout>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="5"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/Infusion_Insert_frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/insert_to_frameLayout"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"></FrameLayout>
+
+    </LinearLayout>
+
+
+
 </LinearLayout>
