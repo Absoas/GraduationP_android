@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Room">
+        <item >101호</item>
+        <item >201호</item>
+    </string-array>
+
+    <string-array name="Infusion">
+        <item >식염수</item>
+        <item >뭐있음?</item>
+    </string-array>
+
+</resources>

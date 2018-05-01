@@ -1,6 +1,9 @@
 package com.example.yb.testtalk.Menu_Search;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +29,10 @@ import com.example.yb.testtalk.R;
 import com.example.yb.testtalk.model.NotificationModel;
 import com.example.yb.testtalk.model.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -60,12 +67,15 @@ public class Infusion_detail extends AppCompatActivity {
     Button start;
     String num;
     private static String TAG = "Get_Infusion_detail";
-    private UserModel destinationUserModel;
+    private NotificationManager mNM;
+    private  Notification mNoti;
 
 
     static double infusion_speed = 0.33;
     private Timer mTimer;
     double infusion_total;
+    double infusion_temp=3.00;
+    double infusion_temp1=1.00;
     String name, total, disease;
     private static final String TAG_ID = "ID";
     private static final String TAG_I_NAME = "INFUSION_NAME";
@@ -85,8 +95,6 @@ public class Infusion_detail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_infusion_detail);
         mArrayList = new ArrayList<>();
-
-
 
         start = (Button) findViewById(R.id.btn_infusion_start);
         speed = (TextView) findViewById(R.id.motor_speed);
@@ -121,6 +129,7 @@ public class Infusion_detail extends AppCompatActivity {
     }
 
     private void setStartTime(){
+        remain_amount.setText(num);
         mTimer = new Timer();
         mTimer.schedule(timerTask, 500, 1000);
 
@@ -131,15 +140,16 @@ public class Infusion_detail extends AppCompatActivity {
     private Runnable mUpdateTimeTask = new Runnable() {
         @Override
         public void run() {
-                    infusion_total = infusion_total - infusion_speed;
-                    num = String.format("%.2f" , infusion_total);
+            infusion_temp = infusion_temp - infusion_speed;
+                    num = String.format("%.2f" , infusion_temp);
                     remain_amount.setText(String.valueOf(num) +"mL");
 
                     Log.d("TAG",num);
-                    if(infusion_total<=0.00){
+                    if(infusion_temp<=0.00){
                         sendGcm();
-                        timerTask.cancel();
+                        remain_amount.setTextSize(10);
                         remain_amount.setText("수액 투여가 모두 완료되었습니다.");
+                        timerTask.cancel();
                     }
 
             SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
@@ -277,37 +287,21 @@ public class Infusion_detail extends AppCompatActivity {
 
     void sendGcm() {
 
-        Gson gson = new Gson();
+        PendingIntent intent = PendingIntent.getActivity(
+                Infusion_detail.this, 0,
+                new Intent(Infusion_detail.this, Infusion_detail.class), 0);
 
-        String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-        NotificationModel notificationModel = new NotificationModel();
-        notificationModel.to = destinationUserModel.pushToken;
-        notificationModel.notification.title = userName;
-        notificationModel.notification.text = "";
-        notificationModel.data.title = userName;
-        notificationModel.data.text = "";
 
-        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf8"), gson.toJson(notificationModel));
 
-        Request request = new Request.Builder()
-                .header("Content-Type", "application/json")
-                .addHeader("Authorization", "key=AIzaSyB3Y1luYBFpMVSaP-tZgeT0Gn6SFJPv1TE")
-                .url("https://gcm-http.googleapis.com/gcm/send")
-                .post(requestBody)
+        mNoti = new Notification.Builder(getApplicationContext())
+                .setContentTitle("간호사님")
+                .setContentText("환자분 수액투여가 완료되었습니다.")
+                .setSmallIcon(R.drawable.loading_icon)
+                .setTicker("알림!!!")
                 .build();
-          OkHttpClient okHttpClient = new OkHttpClient();
-          okHttpClient.newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
 
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-
-            }
-        });
-
+        mNM = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNM.notify(1234, mNoti);
 
     }
 }

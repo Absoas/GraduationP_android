@@ -7,8 +7,10 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.yb.testtalk.R;
@@ -31,7 +33,7 @@ public class Infusion_Insert_detailFragment extends Fragment {
     EditText pin,totalamount,name,disease;
     Button Send;
     TextView resultRx;
-
+    Spinner Infusion;
 
     @Nullable
     @Override
@@ -42,9 +44,18 @@ public class Infusion_Insert_detailFragment extends Fragment {
         totalamount = (EditText) view.findViewById(R.id.Edit_patient_totalamount);
         name = (EditText) view.findViewById(R.id.Edit_patient_Infusion);
         disease = (EditText) view.findViewById(R.id.Edit_patient_disease);
-
+        Infusion = (Spinner) view.findViewById(R.id.spinnerInfusion);
         resultRx = (TextView) view.findViewById(R.id.textView_detail1);
 
+        Infusion.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                name.setText(parent.getItemAtPosition(position).toString());
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
         Send = (Button) view.findViewById(R.id.Button_Infusion_append_detail);
 
         Send.setOnClickListener(new View.OnClickListener() {

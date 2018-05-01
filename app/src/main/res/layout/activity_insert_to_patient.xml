@@ -20,7 +20,7 @@
 
             <EditText
                 android:id="@+id/EditText_pin"
-                android:layout_width="match_parent"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:hint="식별 번호" />
 
@@ -33,7 +33,7 @@
 
             <EditText
                 android:id="@+id/EditText_name"
-                android:layout_width="match_parent"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:hint="이름" />
 
@@ -45,7 +45,7 @@
 
             <EditText
                 android:id="@+id/EditText_age"
-                android:layout_width="match_parent"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:hint="나이" />
 
@@ -58,7 +58,7 @@
 
             <EditText
                 android:id="@+id/EditText_telephone"
-                android:layout_width="match_parent"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:hint="전화번호" />
 
@@ -70,7 +70,7 @@
 
             <EditText
                 android:id="@+id/EditText_Protector_Name"
-                android:layout_width="match_parent"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:hint="보호자 이름" />
 
@@ -83,7 +83,7 @@
 
             <EditText
                 android:id="@+id/EditText_Protector_Phone"
-                android:layout_width="match_parent"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:hint="보호자 전화번호" />
 
@@ -105,7 +105,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="left"
                 android:orientation="horizontal">
 
                 <Button
