@@ -38,7 +38,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".Menu_Search.Infusion_detail"></activity>
+        <activity android:name=".Menu_Search.Infusion_detail"  ></activity>
     </application>
 
 </manifest>

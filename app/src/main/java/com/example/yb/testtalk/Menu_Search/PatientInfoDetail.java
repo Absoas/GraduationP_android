@@ -55,13 +55,14 @@ public class PatientInfoDetail extends Activity {
     int[] Jsonbpm = new int[100];
     Button Infusion;
     String id;
+    TextView tvID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_detail);
 
-        TextView tvID = (TextView)findViewById(R.id.textView1);
+        tvID = (TextView)findViewById(R.id.textView1);
         TextView tvNAME = (TextView)findViewById(R.id.textView2);
         TextView tvBPM = (TextView)findViewById(R.id.textView3);
         TextView tvTEMP = (TextView)findViewById(R.id.textView4);
@@ -107,6 +108,8 @@ public class PatientInfoDetail extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PatientInfoDetail.this, Infusion_detail.class);
+
+                intent.putExtra("name", tvID.getText().toString() );
                 startActivity(intent);
             }
         });

@@ -1,17 +1,22 @@
 package com.example.yb.testtalk.Menu_Search;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -26,6 +31,7 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -52,12 +58,13 @@ public class Infusion_detail extends AppCompatActivity {
 
     TextView speed, remain_amount, remain_time, total_amount, infusion_name, infusion_disease;
     Button start;
-
+    String num;
     private static String TAG = "Get_Infusion_detail";
     private UserModel destinationUserModel;
 
-    static double infusion_speed = 0.33;
 
+    static double infusion_speed = 0.33;
+    private Timer mTimer;
     double infusion_total;
     String name, total, disease;
     private static final String TAG_ID = "ID";
@@ -71,13 +78,15 @@ public class Infusion_detail extends AppCompatActivity {
 
     ArrayList<HashMap<String, String>> mArrayList;
     String mJsonString;
-    private AsyncTask<Void, Void, Void> mTask;
+    MainTimerTask timerTask = new MainTimerTask();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_infusion_detail);
         mArrayList = new ArrayList<>();
+
+
 
         start = (Button) findViewById(R.id.btn_infusion_start);
         speed = (TextView) findViewById(R.id.motor_speed);
@@ -90,43 +99,63 @@ public class Infusion_detail extends AppCompatActivity {
         Infusion_detail.GetData task = new Infusion_detail.GetData();
         task.execute(getResources().getString(R.string.infusionSelect));
 
+        Intent intent = getIntent(); // 보내온 Intent를 얻는다
+
+        String name = intent.getStringExtra("id");
+
+        System.out.println(name);
+
+
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Thread thread = new Thread(runnable);
-                thread.start();
+                setStartTime();
             }
         });
+
+        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+        String callValue =pref.getString("key", "");
+
+        remain_amount.setText(callValue+"mL");
+
+    }
+
+    private void setStartTime(){
+        mTimer = new Timer();
+        mTimer.schedule(timerTask, 500, 1000);
+
     }
 
 
-    Runnable runnable = new Runnable() {
+    private Handler handler = new Handler();
+    private Runnable mUpdateTimeTask = new Runnable() {
         @Override
         public void run() {
-            while (true) {
-                try {
-                    handler.sendMessage(handler.obtainMessage());
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+                    infusion_total = infusion_total - infusion_speed;
+                    num = String.format("%.2f" , infusion_total);
+                    remain_amount.setText(String.valueOf(num) +"mL");
+
+                    Log.d("TAG",num);
+                    if(infusion_total<=0.00){
+                        sendGcm();
+                        timerTask.cancel();
+                        remain_amount.setText("수액 투여가 모두 완료되었습니다.");
+                    }
+
+            SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString("key", num);
+                    editor.commit();
+
         }
     };
 
+    class  MainTimerTask extends TimerTask{
+        public void run(){
+            handler.post(mUpdateTimeTask);
+        }
+    }
 
-    Handler handler = new Handler() { // 메인에서 생성한 핸들러
-
-        @Override
-        public void handleMessage(Message msg) {
-
-            infusion_total = infusion_total - infusion_speed;
-            String num = String.format("%.2f" , infusion_total);
-
-            remain_amount.setText(String.valueOf(num));
-
-        } // end handleMessage
-    };
 
     private class GetData extends AsyncTask<String, Void, String> {
         ProgressDialog progressDialog;
@@ -225,7 +254,6 @@ public class Infusion_detail extends AppCompatActivity {
                 String id = item.getString(TAG_ID);
 
                 infusion_total = item.getInt(TAG_T_AMOUNT);
-                System.out.println(infusion_total);
 
 
                 HashMap<String, String> hashMap = new HashMap<>();
@@ -242,45 +270,44 @@ public class Infusion_detail extends AppCompatActivity {
                 mArrayList.add(hashMap);
             }
 
-
-        } catch (JSONException e) {
+                } catch (JSONException e) {
             Log.d(TAG, "showResult : ", e);
         }
     }
 
-//    void sendGcm() {
-//
-//        Gson gson = new Gson();
-//
-//        String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
-//        NotificationModel notificationModel = new NotificationModel();
-//        notificationModel.to = destinationUserModel.pushToken;
-//        notificationModel.notification.title = userName;
-//        notificationModel.notification.text = "";
-//        notificationModel.data.title = userName;
-//        notificationModel.data.text = "";
-//
-//        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf8"), gson.toJson(notificationModel));
-//
-//        Request request = new Request.Builder()
-//                .header("Content-Type", "application/json")
-//                .addHeader("Authorization", "key=AIzaSyB3Y1luYBFpMVSaP-tZgeT0Gn6SFJPv1TE")
-//                .url("https://gcm-http.googleapis.com/gcm/send")
-//                .post(requestBody)
-//                .build();
-//          OkHttpClient okHttpClient = new OkHttpClient();
-//          okHttpClient.newCall(request).enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//
-//            }
-//        });
-//
-//
-//    }
+    void sendGcm() {
+
+        Gson gson = new Gson();
+
+        String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        NotificationModel notificationModel = new NotificationModel();
+        notificationModel.to = destinationUserModel.pushToken;
+        notificationModel.notification.title = userName;
+        notificationModel.notification.text = "";
+        notificationModel.data.title = userName;
+        notificationModel.data.text = "";
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf8"), gson.toJson(notificationModel));
+
+        Request request = new Request.Builder()
+                .header("Content-Type", "application/json")
+                .addHeader("Authorization", "key=AIzaSyB3Y1luYBFpMVSaP-tZgeT0Gn6SFJPv1TE")
+                .url("https://gcm-http.googleapis.com/gcm/send")
+                .post(requestBody)
+                .build();
+          OkHttpClient okHttpClient = new OkHttpClient();
+          okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+            }
+        });
+
+
+    }
 }
