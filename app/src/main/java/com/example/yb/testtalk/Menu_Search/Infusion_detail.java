@@ -8,6 +8,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -63,7 +65,7 @@ import okhttp3.Response;
 
 public class Infusion_detail extends AppCompatActivity {
 
-    TextView speed, remain_amount, remain_time, total_amount, infusion_name, infusion_disease;
+    TextView text_speed, text_remain_amount, text_remain_time, text_total_amount, text_name, text_disease;
     Button start;
     String num;
     private static String TAG = "Get_Infusion_detail";
@@ -71,19 +73,16 @@ public class Infusion_detail extends AppCompatActivity {
     private  Notification mNoti;
 
 
-    static double infusion_speed = 0.33;
     private Timer mTimer;
-    double infusion_total;
-    double infusion_temp=3.00;
-    double infusion_temp1=1.00;
-    String name, total, disease;
+    String infusion_name, infusion_total, infusion_disease , infusion_speed,infusion_remain_time;
+    int infusion_remain_amount;
     private static final String TAG_ID = "ID";
     private static final String TAG_I_NAME = "INFUSION_NAME";
     private static final String TAG_T_AMOUNT = "INFUSION_TOTAL_AMOUNT";
     private static final String TAG_DISEASE = "DISEASE";
-    private static final String TAG_REMAIN_TIME = "REMAINTIME";
-    private static final String TAG_R_AMOUNT = "TOTALAMOUNT";
-    private static final String TAG_SPEED = "SPEED";
+    private static final String TAG_REMAIN_TIME = "INFUSION_REMAIN_TIME";
+    private static final String TAG_REMAIN_AMOUNT = "INFUSION_REMAIN_AMOUNT";
+    private static final String TAG_SPEED = "INFUSION_SPEED";;
     // ProgressHandler handler;
 
     ArrayList<HashMap<String, String>> mArrayList;
@@ -96,16 +95,13 @@ public class Infusion_detail extends AppCompatActivity {
         setContentView(R.layout.activity_infusion_detail);
         mArrayList = new ArrayList<>();
 
-        start = (Button) findViewById(R.id.btn_infusion_start);
-        speed = (TextView) findViewById(R.id.motor_speed);
-        remain_amount = (TextView) findViewById(R.id.Infusion_remain_amount);
-        remain_time = (TextView) findViewById(R.id.Infusion_remain_time);
-        total_amount = (TextView) findViewById(R.id.Infusion_total_amount);
-        infusion_name = (TextView) findViewById(R.id.Infusion_name);
-        infusion_disease = (TextView) findViewById(R.id.infusion_disease);
+        text_speed = (TextView) findViewById(R.id.motor_speed);
+        text_remain_amount = (TextView) findViewById(R.id.Infusion_remain_amount);
+        text_remain_time = (TextView) findViewById(R.id.Infusion_remain_time);
+        text_total_amount = (TextView) findViewById(R.id.Infusion_total_amount);
+        text_name = (TextView) findViewById(R.id.Infusion_name);
+        text_disease = (TextView) findViewById(R.id.infusion_disease);
 
-        Infusion_detail.GetData task = new Infusion_detail.GetData();
-        task.execute(getResources().getString(R.string.infusionSelect));
 
         Intent intent = getIntent(); // 보내온 Intent를 얻는다
 
@@ -113,23 +109,11 @@ public class Infusion_detail extends AppCompatActivity {
 
         System.out.println(name);
 
-
-        start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setStartTime();
-            }
-        });
-
-        SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
-        String callValue =pref.getString("key", "");
-
-        remain_amount.setText(callValue+"mL");
+        setStartTime();
 
     }
 
     private void setStartTime(){
-        remain_amount.setText(num);
         mTimer = new Timer();
         mTimer.schedule(timerTask, 500, 1000);
 
@@ -140,23 +124,16 @@ public class Infusion_detail extends AppCompatActivity {
     private Runnable mUpdateTimeTask = new Runnable() {
         @Override
         public void run() {
-            infusion_temp = infusion_temp - infusion_speed;
-                    num = String.format("%.2f" , infusion_temp);
-                    remain_amount.setText(String.valueOf(num) +"mL");
+            Infusion_detail.GetData task = new Infusion_detail.GetData();
+            task.execute(getResources().getString(R.string.infusionSelect));
 
-                    Log.d("TAG",num);
-                    if(infusion_temp<=0.00){
-                        sendGcm();
-                        remain_amount.setTextSize(10);
-                        remain_amount.setText("수액 투여가 모두 완료되었습니다.");
-                        timerTask.cancel();
-                    }
 
-            SharedPreferences pref = getSharedPreferences("pref", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = pref.edit();
-                    editor.putString("key", num);
-                    editor.commit();
-
+            text_name.setText(infusion_name);
+            text_disease.setText(infusion_disease);
+            text_total_amount.setText(infusion_total + "mL");
+            text_remain_amount.setText(infusion_remain_amount + "mL");
+            text_speed.setText(infusion_speed + "mL/s");
+            text_remain_time.setText(infusion_remain_time + "초");
         }
     };
 
@@ -168,15 +145,13 @@ public class Infusion_detail extends AppCompatActivity {
 
 
     private class GetData extends AsyncTask<String, Void, String> {
-        ProgressDialog progressDialog;
+
         String errorString = null;
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
-            progressDialog = ProgressDialog.show(Infusion_detail.this,
-                    "Please Wait", null, true, true);
         }
 
 
@@ -184,7 +159,6 @@ public class Infusion_detail extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
-            progressDialog.dismiss();
             // mTextViewResult.setText(result);
             Log.d(TAG, "response  - " + result);
 
@@ -258,29 +232,33 @@ public class Infusion_detail extends AppCompatActivity {
             for (int i = 0; i < jsonArray.length(); i++) {
 
                 JSONObject item = jsonArray.getJSONObject(i);
-                name = item.getString(TAG_I_NAME);
-                total = item.getString(TAG_T_AMOUNT);
-                disease = item.getString(TAG_DISEASE);
+                infusion_name = item.getString(TAG_I_NAME);
+                infusion_total = item.getString(TAG_T_AMOUNT);
+                infusion_disease = item.getString(TAG_DISEASE);
+                infusion_remain_time = item.getString(TAG_REMAIN_TIME);
+                infusion_speed= item.getString(TAG_SPEED);
+                infusion_remain_amount = item.getInt(TAG_REMAIN_AMOUNT);
+
                 String id = item.getString(TAG_ID);
 
-                infusion_total = item.getInt(TAG_T_AMOUNT);
+                text_name.setText(infusion_name);
+                text_disease.setText(infusion_disease);
+                text_total_amount.setText(infusion_total + "mL");
+                text_remain_amount.setText(infusion_remain_amount + "mL");
+                text_speed.setText(infusion_speed + "mL/s");
+                text_remain_time.setText(infusion_remain_time + "초");
 
 
-                HashMap<String, String> hashMap = new HashMap<>();
-                hashMap.put(TAG_I_NAME, name);
-                hashMap.put(TAG_T_AMOUNT, total);
-                hashMap.put(TAG_ID, id);
-                hashMap.put(TAG_DISEASE, disease);
+                if(infusion_remain_amount <= 1){
+                    sendGcm();
+                    text_remain_amount.setTextSize(10);
+                    text_remain_amount.setText("수액 투여가 모두 완료되었습니다.");
+                    timerTask.cancel();
+                }
 
-                infusion_name.setText(name);
-                infusion_disease.setText(disease);
-                total_amount.setText(total + "mL");
-                speed.setText(infusion_speed + "ML/s");
-
-                mArrayList.add(hashMap);
             }
 
-                } catch (JSONException e) {
+        } catch (JSONException e) {
             Log.d(TAG, "showResult : ", e);
         }
     }
@@ -292,16 +270,26 @@ public class Infusion_detail extends AppCompatActivity {
                 new Intent(Infusion_detail.this, Infusion_detail.class), 0);
 
 
-
+        Uri soundUri = RingtoneManager.getActualDefaultRingtoneUri(this,RingtoneManager.TYPE_NOTIFICATION);
         mNoti = new Notification.Builder(getApplicationContext())
                 .setContentTitle("간호사님")
                 .setContentText("환자분 수액투여가 완료되었습니다.")
                 .setSmallIcon(R.drawable.loading_icon)
                 .setTicker("알림!!!")
+                .setSound(soundUri) // 사운드
+                .setVibrate(new long[]{0,3000}) //진동 3초
+                .setAutoCancel(true) //누르면 자동 알림 지우기
+                .setContentIntent(intent) // 누르면 액티비티 이동
                 .build();
 
         mNM = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNM.notify(1234, mNoti);
 
+    }
+
+    public void onDestroy() {
+        super.onDestroy();
+        timerTask.cancel();
+        Log.i(TAG, "onDestroy");
     }
 }
