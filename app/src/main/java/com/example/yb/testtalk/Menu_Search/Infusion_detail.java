@@ -66,8 +66,6 @@ import okhttp3.Response;
 public class Infusion_detail extends AppCompatActivity {
 
     TextView text_speed, text_remain_amount, text_remain_time, text_total_amount, text_name, text_disease;
-    Button start;
-    String num;
     private static String TAG = "Get_Infusion_detail";
     private NotificationManager mNM;
     private  Notification mNoti;
@@ -292,4 +290,5 @@ public class Infusion_detail extends AppCompatActivity {
         timerTask.cancel();
         Log.i(TAG, "onDestroy");
     }
+
 }

@@ -7,7 +7,8 @@
 
     <string-array name="Infusion">
         <item >식염수</item>
-        <item >뭐있음?</item>
+        <item >포도당 수액</item>
+        <item >영양 수액</item>
     </string-array>
 
 </resources>

@@ -18,11 +18,6 @@ public class After_Search extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_after_search);
 
-//        list.add("1층 ");
-//        list.add("2층 ");
-//        list.add("3층 ");
-//        list.add("4층 ");
-
 
         Fsearch = (Button) findViewById(R.id.after_search1);
         Ssearch = (Button) findViewById(R.id.after_search2);
@@ -33,9 +28,17 @@ public class After_Search extends AppCompatActivity {
 //        Ssearch.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                getFragmentManager().beginTransaction().replace(R.id.Search_fragment,new second_PatientRoom()).commit();
+//                getFragmentManager().beginTransaction().replace(R.id.Search_fragment,new Patient_search_detailFragment()).commit();
 //            }
 //        });
+//
+//        Fsearch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getFragmentManager().beginTransaction().replace(R.id.Search_fragment,new Patient_search_detailFragment()).commit();
+//            }
+//        });
+
 
     }
 

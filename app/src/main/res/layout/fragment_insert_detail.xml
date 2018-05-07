@@ -74,7 +74,7 @@
                 android:id="@+id/Edit_patient_respiration"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:hint="호흡" />
+                android:hint="호흡  (분당 몇 회) " />
         </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
@@ -92,7 +92,7 @@
                 android:id="@+id/Edit_patient_bpm"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:hint="BPM" />
+                android:hint="BPM  (분당 몇 회)" />
         </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
@@ -128,7 +128,7 @@
                 android:id="@+id/Edit_patient_the_others"
                 android:layout_width="200dp"
                 android:layout_height="80dp"
-                android:hint="the_others" />
+                android:hint="기타 사항" />
 
         </android.support.design.widget.TextInputLayout>
 
