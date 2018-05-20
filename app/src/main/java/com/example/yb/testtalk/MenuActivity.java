@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.yb.testtalk.Menu_Insert.Insert_to_PatientInfo;
+import com.example.yb.testtalk.Menu_Search.GetpatientInfo;
 import com.example.yb.testtalk.Menu_Search.patientSearchMenu;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 
 public class MenuActivity extends AppCompatActivity {
 
-    private Button menu_search , menu_insert, menu_chatting;
+    private Button menu_search , menu_chatting;
     private DatabaseReference mdatabase;
     String uid;
     ArrayList<String> mArrayList = new ArrayList<String>();
@@ -34,7 +35,7 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         menu_search= (Button) findViewById(R.id.menuButton_1);
-        menu_insert= (Button) findViewById(R.id.menuButton_2);
+
         menu_chatting= (Button) findViewById(R.id.menuButton_3);
 
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();  //채팅을 요구 하는 아아디 즉 단말기에 로그인된 UID
@@ -56,7 +57,7 @@ public class MenuActivity extends AppCompatActivity {
 
                         if (permission.equals("간호사")) {
                             Toast.makeText(MenuActivity.this, "안녕하세요. "+userName+" "+permission+"님", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(MenuActivity.this, patientSearchMenu.class);
+                            Intent intent = new Intent(MenuActivity.this, GetpatientInfo.class);
                             startActivity(intent);
                         }else if(permission.equals("환자")){
                             showDialog();
@@ -64,18 +65,6 @@ public class MenuActivity extends AppCompatActivity {
                     }
                 });
 
-                menu_insert.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (permission.equals("간호사")) {
-                            Toast.makeText(MenuActivity.this, "안녕하세요. "+userName+" "+permission+"님", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(MenuActivity.this, Insert_to_PatientInfo.class);
-                            startActivity(intent);
-                        }else if(permission.equals("환자")){
-                            showDialog();
-                        }
-                    }
-                });
 
                 menu_chatting.setOnClickListener(new View.OnClickListener() {
                     @Override

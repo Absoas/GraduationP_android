@@ -5,90 +5,162 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
+    android:layout_margin="20dp"
+    android:background="#FFFFFF"
     tools:context=".MainActivity">
 
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="5">
+        android:layout_weight="5"
+        android:layout_margin="20dp"
+        android:orientation="vertical">
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/EditText_pin"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:hint="식별 번호" />
+            <Button
+                android:background="@drawable/v1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-        </android.support.design.widget.TextInputLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+                <EditText
+                    android:id="@+id/EditText_pin"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="식별 번호" />
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            </android.support.design.widget.TextInputLayout>
 
-            <EditText
-                android:id="@+id/EditText_name"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:hint="이름" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/EditText_age"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:hint="나이" />
+        </LinearLayout>
 
 
-        </android.support.design.widget.TextInputLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            <Button
+                android:background="@drawable/v2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-            <EditText
-                android:id="@+id/EditText_telephone"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:hint="전화번호" />
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        </android.support.design.widget.TextInputLayout>
+                <EditText
+                    android:id="@+id/EditText_name"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="이름" />
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
 
-            <EditText
-                android:id="@+id/EditText_Protector_Name"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:hint="보호자 이름" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:background="@drawable/v3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/EditText_age"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="나이" />
 
 
-        </android.support.design.widget.TextInputLayout>
+            </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        </LinearLayout>
 
-            <EditText
-                android:id="@+id/EditText_Protector_Phone"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:hint="보호자 전화번호" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-        </android.support.design.widget.TextInputLayout>
+            <Button
+                android:background="@drawable/v4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/EditText_telephone"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="전화번호" />
+
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:background="@drawable/v5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/EditText_Protector_Name"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="보호자 이름" />
+
+
+            </android.support.design.widget.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:background="@drawable/v6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/EditText_Protector_Phone"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="보호자 전화번호" />
+
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/SendJson_Result_TextView"
@@ -101,38 +173,50 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/httpTest"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="left"
-                android:orientation="horizontal">
+                android:layout_margin="5dp"
+                android:background="@drawable/c4" />
 
-                <Button
-                    android:id="@+id/button_Infusion_detail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="수액 처방 사항 입력" />
+            <Button
+                android:id="@+id/update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/c2"  />
+        </LinearLayout>
 
-                <Button
-                    android:id="@+id/button_Info_More_details"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="자세 사항 입력" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/httpTest"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="등록하기" />
+            <Button
+                android:id="@+id/button_Infusion_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/c1"  />
 
-            </LinearLayout>
+            <Button
+                android:id="@+id/button_Info_More_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/c3"  />
 
-
+        </LinearLayout>
     </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/insert_Linearlayout"
@@ -153,8 +237,8 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_weight="5"
         android:layout_height="match_parent"
+        android:layout_weight="5"
         android:orientation="vertical">
 
         <FrameLayout
@@ -167,7 +251,6 @@
             android:layout_alignParentTop="true"></FrameLayout>
 
     </LinearLayout>
-
 
 
 </LinearLayout>

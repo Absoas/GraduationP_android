@@ -12,4 +12,5 @@
     <string name="Infusion">http://192.168.255.110:4000/infusion</string>
     <string name="delete">http://192.168.255.110:4000/delete</string>
     <string name="infusionSelect">http://192.168.255.110:4000/infusionSelect</string>
+    <string name="recordUpdate">http://192.168.255.110:4000/recordUpdate</string>
 </resources>

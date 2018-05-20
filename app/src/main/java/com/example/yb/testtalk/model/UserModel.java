@@ -9,12 +9,12 @@ package com.example.yb.testtalk.model;
 
 public class UserModel {
 
-    public String ausername;
+    public String aausername;
     public String profileImageUrl;
     public String uid;
     public String pushToken;
     public String comment;
-    public String permission;
+    public String apermission;
 
     public UserModel() {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)

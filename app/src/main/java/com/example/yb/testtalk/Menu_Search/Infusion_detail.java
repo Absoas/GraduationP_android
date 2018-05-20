@@ -72,7 +72,7 @@ public class Infusion_detail extends AppCompatActivity {
 
 
     private Timer mTimer;
-    String infusion_name, infusion_total, infusion_disease , infusion_speed,infusion_remain_time;
+    String infusion_name, infusion_remain_time,infusion_total, infusion_disease , infusion_speed;
     int infusion_remain_amount;
     private static final String TAG_ID = "ID";
     private static final String TAG_I_NAME = "INFUSION_NAME";
@@ -100,20 +100,12 @@ public class Infusion_detail extends AppCompatActivity {
         text_name = (TextView) findViewById(R.id.Infusion_name);
         text_disease = (TextView) findViewById(R.id.infusion_disease);
 
-
-        Intent intent = getIntent(); // 보내온 Intent를 얻는다
-
-        String name = intent.getStringExtra("id");
-
-        System.out.println(name);
-
         setStartTime();
-
     }
 
     private void setStartTime(){
         mTimer = new Timer();
-        mTimer.schedule(timerTask, 500, 1000);
+        mTimer.schedule(timerTask, 500, 3000);
 
     }
 
@@ -131,7 +123,7 @@ public class Infusion_detail extends AppCompatActivity {
             text_total_amount.setText(infusion_total + "mL");
             text_remain_amount.setText(infusion_remain_amount + "mL");
             text_speed.setText(infusion_speed + "mL/s");
-            text_remain_time.setText(infusion_remain_time + "초");
+            text_remain_time.setText(infusion_remain_time );
         }
     };
 
@@ -244,8 +236,7 @@ public class Infusion_detail extends AppCompatActivity {
                 text_total_amount.setText(infusion_total + "mL");
                 text_remain_amount.setText(infusion_remain_amount + "mL");
                 text_speed.setText(infusion_speed + "mL/s");
-                text_remain_time.setText(infusion_remain_time + "초");
-
+                text_remain_time.setText(infusion_remain_time);
 
                 if(infusion_remain_amount <= 1){
                     sendGcm();

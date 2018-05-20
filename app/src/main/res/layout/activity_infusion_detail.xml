@@ -9,9 +9,9 @@
 
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/medicine"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/infusion"
         android:layout_gravity="center" />
 
     <LinearLayout
@@ -28,7 +28,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:text="수액 이름"
+            android:background="@drawable/x1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
@@ -53,7 +53,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:text="수액 총량"
+            android:background="@drawable/x2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
@@ -76,7 +76,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:text="남은 수액"
+            android:background="@drawable/x3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
@@ -100,7 +100,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:text="투여 속도"
+            android:background="@drawable/x4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
@@ -121,7 +121,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:text="남은 시간"
+            android:background="@drawable/x5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
@@ -147,7 +147,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:text="질병"
+            android:background="@drawable/x6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />

@@ -15,6 +15,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.example.yb.testtalk.Menu_Insert.Insert_to_PatientInfo;
 import com.example.yb.testtalk.R;
 
 import org.json.JSONArray;
@@ -52,6 +53,7 @@ public class GetpatientInfo extends AppCompatActivity {
     ListView mlistView;
     String mJsonString;
     private SwipeRefreshLayout swipeContainer;
+    Button insert;
 
 
     @Override
@@ -63,8 +65,19 @@ public class GetpatientInfo extends AppCompatActivity {
 
         mArrayList = new ArrayList<>();
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        insert = (Button) findViewById(R.id.menuButton_2);
 
 
+        insert= (Button) findViewById(R.id.menuButton_2);
+
+
+        insert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    Intent intent = new Intent(GetpatientInfo.this, Insert_to_PatientInfo.class);
+                    startActivity(intent);
+            }
+        });
 
         GetpatientInfo.GetData task = new GetpatientInfo.GetData();
         task.execute(getResources().getString(R.string.JoinSelect));
@@ -267,7 +280,4 @@ public class GetpatientInfo extends AppCompatActivity {
 //
 //    private void updateThread() {
 //    }
-
-
-
 }

@@ -98,7 +98,7 @@ public class PeopleFragment extends Fragment {
                     .load(userModels.get(position).profileImageUrl)
                     .apply(new RequestOptions().circleCrop())
                     .into(((CustomViewHolder)holder).imageView);
-            ((CustomViewHolder)holder).textView.setText(userModels.get(position).ausername);
+            ((CustomViewHolder)holder).textView.setText(userModels.get(position).aausername);
 
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {

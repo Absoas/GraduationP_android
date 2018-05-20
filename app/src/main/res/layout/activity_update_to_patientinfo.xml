@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -58,9 +57,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
         <Button
-            android:background="@drawable/w6"
+            android:background="@drawable/y7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -81,9 +79,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
         <Button
-            android:background="@drawable/w4"
+            android:background="@drawable/y5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -103,76 +100,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:background="@drawable/w2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/Edit_patient_bpm"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:hint="BPM  (분당 몇 회)" />
-        </android.support.design.widget.TextInputLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/w3" />
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/Edit_patient_temp"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:hint="체온" />
-        </android.support.design.widget.TextInputLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:background="@drawable/z4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/Edit_patient_the_others"
-                android:layout_width="200dp"
-                android:layout_height="80dp"
-                android:hint="기타 사항" />
-
-        </android.support.design.widget.TextInputLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <Button
@@ -180,7 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:background="@drawable/c4"/>
+            android:text="업데이트" />
 
         <TextView
             android:id="@+id/textView_detail"

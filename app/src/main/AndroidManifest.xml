@@ -39,7 +39,7 @@
         </service>
 
         <activity android:name=".Menu_Search.Infusion_detail" />
-
+        <activity android:name=".Menu_Insert.Update_to_patientinfo"></activity>
     </application>
 
 </manifest>

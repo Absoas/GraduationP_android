@@ -1,13 +1,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:layout_margin="20dp"
     android:orientation="horizontal">
-
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="5"
+        android:background="#FFFFFF"
         android:orientation="vertical">
 
         <LinearLayout
@@ -16,9 +17,10 @@
             android:orientation="horizontal">
 
             <Button
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ID" />
+                android:background="@drawable/y1" />
 
             <TextView
                 android:id="@+id/textView1"
@@ -36,7 +38,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="이름" />
+                android:background="@drawable/y2" />
 
             <TextView
                 android:id="@+id/textView2"
@@ -55,7 +57,26 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="BPM" />
+                android:background="@drawable/y8" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Artist"
+                android:textSize="30dp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/y3" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -74,7 +95,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="체온" />
+                android:background="@drawable/y4" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -93,7 +114,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="호흡" />
+                android:background="@drawable/y5"/>
 
             <TextView
                 android:id="@+id/textView5"
@@ -111,7 +132,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="병실" />
+                android:background="@drawable/y6" />
 
 
             <TextView
@@ -130,7 +151,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="혈압" />
+                android:background="@drawable/y7" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -149,25 +170,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="나이" />
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Artist"
-                android:textSize="30dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="기타" />
+                android:background="@drawable/y9" />
 
             <TextView
                 android:id="@+id/textView9"
@@ -188,7 +191,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignTop="@+id/Infusion_detail"
                 android:layout_marginStart="12dp"
-                android:text="삭제" />
+                android:background="@drawable/a1" />
 
             <Button
                 android:id="@+id/Infusion_detail"
@@ -198,7 +201,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginBottom="13dp"
                 android:layout_marginEnd="72dp"
-                android:text="수액 정보 보기" />
+                android:background="@drawable/a2" />
 
         </RelativeLayout>
 
@@ -206,37 +209,51 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_weight="5"
         android:layout_height="match_parent"
+        android:layout_weight="5"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="온도 그래프"
-            android:textSize="50dp"/>
-
-        <com.jjoe64.graphview.GraphView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:id="@+id/graph" />
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="80dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="온도 그래프"
+                android:textSize="50dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="심박 그래프"
-            android:textSize="50dp"/>
+            <com.jjoe64.graphview.GraphView
+                android:background="#FFFFFF"
+                android:id="@+id/graph"
+                android:layout_width="match_parent"
+                android:layout_height="250dp" />
+        </LinearLayout>
 
-        <com.jjoe64.graphview.GraphView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:id="@+id/graph1" />
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:orientation="vertical">
 
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="심박 그래프"
+                android:textSize="50dp" />
+
+            <com.jjoe64.graphview.GraphView
+                android:background="#FFFFFF"
+                android:id="@+id/graph1"
+                android:layout_width="match_parent"
+                android:layout_height="250dp" />
+
+        </LinearLayout>
 
     </LinearLayout>
+
 </LinearLayout>
 

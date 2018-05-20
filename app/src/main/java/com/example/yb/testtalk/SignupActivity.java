@@ -94,11 +94,11 @@ public class SignupActivity extends AppCompatActivity {
                                         String imageUrl = task.getResult().getDownloadUrl().toString();
 
                                         UserModel userModel = new UserModel();
-                                        userModel.ausername = name.getText().toString();
+                                        userModel.aausername = name.getText().toString();
                                         if(checkBox1.isChecked()){
-                                            userModel.permission = "간호사";
+                                            userModel.apermission = "간호사";
                                         }else if(checkBox2.isChecked()){
-                                            userModel.permission = "환자";
+                                            userModel.apermission = "환자";
                                         }
                                         userModel.profileImageUrl = imageUrl;
                                         userModel.uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
